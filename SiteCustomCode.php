@@ -162,6 +162,9 @@ $wgAutoloadClasses['SiteSpecialRecentChanges'] = $dir . 'SiteSpecialRecentchange
 $wgAutoloadClasses['SiteOldChangesList'] = $dir . 'SiteChangesList.php';
 $wgAutoloadClasses['SiteEnhancedChangesList'] = $dir . 'SiteChangesList.php';
 $wgAutoloadClasses['SiteSpecialRandompage'] = $dir . 'SiteSpecialRandompage.php';
+$wgAutoloadClasses['UespWebpHandler'] = $dir . 'UespWebpHandler.php';
+
+$wgMediaHandlers['image/webp'] = 'UespWebpHandler';
 
 /*
  * Add Hooks
