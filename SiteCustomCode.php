@@ -177,6 +177,10 @@ $wgHooks['BeforePageDisplay'][] = 'UESP_beforePageDisplay';
 //$wgHooks['SpecialSearchCreateLink'][] = 'onSpecialSearchCreateLink';
 $wgHooks['TitleSquidURLs'][] = 'onUespTitleSquidURLs';
 
+	/* Mobile Specific */
+$wgHooks['MinervaDiscoveryTools'][] = 'onUespMinervaDiscoveryTools';
+$wgHooks['MobilePersonalTools'][] = 'onUespMobilePersonalTools';
+
 # Load messages
 
 $wgExtensionMessagesFiles['sitecustomcode'] = $dir . 'SiteCustomCode.i18n.php';
@@ -483,7 +487,7 @@ function onSpecialSearchCreateLink( $t, &$params ) {
 }
 
 
-# Make sure all possible variants of an article is purged since it can be server from different URLs.
+# Make sure all possible variants of an article is purged since it can be served from different URLs.
 function onUespTitleSquidURLs( Title $title, array &$urls )
 {
 	$internalUrl = preg_replace('/(http(?:s)?:\/\/)([a-z_\-\.0-9A-Z]+)(\.uesp\.net\/.*)/i', '$1XXZZYY$3', $title->getInternalURL());
@@ -495,6 +499,8 @@ function onUespTitleSquidURLs( Title $title, array &$urls )
 	$newUrl5 = str_replace("XXZZYY", "pt.m", $internalUrl);
 	$newUrl6 = str_replace("XXZZYY", "it", $internalUrl);
 	$newUrl7 = str_replace("XXZZYY", "it.m", $internalUrl);
+	$newUrl6 = str_replace("XXZZYY", "ar", $internalUrl);
+	$newUrl7 = str_replace("XXZZYY", "ar.m", $internalUrl);
 	
 	//error_log("onUespTitleSquidURLs: $internalUrl, $newUrl1, $newUrl2, $newUrl3");
 	
@@ -505,6 +511,88 @@ function onUespTitleSquidURLs( Title $title, array &$urls )
 	$urls[] = $newUrl5;
 	$urls[] = $newUrl6;
 	$urls[] = $newUrl7;
+}
+
+
+function onUespMinervaDiscoveryTools (&$items)
+{
+	global $wgServer;
+	
+	$items[] = array(
+			'name' => 'elderscrollsonline',
+			'components' => array(
+				array(
+					'text' => 'ES Online',
+					'href' => "$wgServer/wiki/Online:Online",
+					'class' => MobileUI::iconClass( 'elderscrollsonline', 'before', 'menu-item-elderscrollsonline' ),
+					'data-event-name' => 'elderscrollsonline',
+				),
+			),
+		);
+	
+	$items[] = array(
+			'name' => 'skyrim',
+			'components' => array(
+				array(
+					'text' => 'Skyrim',
+					'href' => "$wgServer/wiki/Skyrim:Skyrim",
+					'class' => MobileUI::iconClass( 'skyrim', 'before', 'menu-item-skyrim' ),
+					'data-event-name' => 'skyrim',
+				),
+			),
+		);
+	
+	$items[] = array(
+			'name' => 'oblivion',
+			'components' => array(
+				array(
+					'text' => 'Oblivion',
+					'href' => "$wgServer/wiki/Oblivion:Oblivion",
+					'class' => MobileUI::iconClass( 'oblivion', 'before', 'menu-item-oblivion' ),
+					'data-event-name' => 'oblivion',
+				),
+			),
+		);
+	
+	$items[] = array(
+			'name' => 'morrowind',
+			'components' => array(
+				array(
+					'text' => 'Morrowind',
+					'href' => "$wgServer/wiki/Morrowind:Morrowind",
+					'class' => MobileUI::iconClass( 'morrowind', 'before', 'menu-item-morrowind' ),
+					'data-event-name' => 'morrowind',
+				),
+			),
+		);
+	
+	$items[] = array(
+			'name' => 'othercontent',
+			'components' => array(
+				array(
+					'text' => 'Other ES Games',
+					'href' => "$wgServer/wiki/All_Content",
+					'class' => MobileUI::iconClass( 'othercontent', 'before', 'menu-item-othercontent' ),
+					'data-event-name' => 'othercontent',
+				),
+			),
+		);
+}
+
+
+function onUespMobilePersonalTools (&$items)
+{
+	$items[] = array(
+			'name' => 'viewdesktop',
+			'components' => array(
+				array(
+					'text' => 'View Desktop',
+					'href' => "$wgServer/wikiredirect.php",
+					'class' => MobileUI::iconClass( 'viewdesktop', 'before', 'menu-item-viewdesktop' ),
+					'data-event-name' => 'viewdesktop',
+				),
+			),
+		);
 }
 
 // group pages appear under at Special:SpecialPages
