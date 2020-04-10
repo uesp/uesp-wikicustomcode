@@ -274,14 +274,6 @@ $wgResourceModules['ext.UespCustomCode.app.scripts'] = array(
 	'targets' => array( 'mobile' ),
 );
 
-$wgResourceModules['ext.UespCustomCode.mobile.styles'] = array(
-	'position' => 'top',
-	'styles' => array( 'modules/uespMobile.css' ),
-	'localBasePath' => __DIR__,
-	'remoteBasePath' => "$wgScriptPath/extensions/UespCustomCode/",
-	'targets' => array( 'mobile' ),
-);
-
 /*
  * Initialization functions
  */
@@ -354,8 +346,6 @@ function efSiteCustomCode() {
 	{
 		if (MobileContext::singleton()->isMobileDevice()) $uespIsMobile = true;
 	}
-	
-	$wgOut->addModules( 'ext.UespCustomCode.mobile.styles' );
 	
 	if ($uespIsApp)
 	{
