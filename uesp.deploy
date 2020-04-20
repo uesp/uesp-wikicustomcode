@@ -15,3 +15,5 @@ dest = content1.uesp.net:/home/uesp/www/w/extensions/UespCustomCode/
 dest = content2.uesp.net:/home/uesp/www/w/extensions/UespCustomCode/
 dest = content3.uesp.net:/home/uesp/www/w/extensions/UespCustomCode/
 
+destname = [backup]backup1.uesp.net:/home/uesp/www/w/extensions/UespCustomCode/
+destname = [dev]content3.uesp.net:/home/uesp/dev/www/w/extensions/UespCustomCode/
