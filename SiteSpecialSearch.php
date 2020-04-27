@@ -112,8 +112,6 @@ class SiteSpecialSearch extends SpecialSearch {
 	</tr><tr>
 		<td style="white-space: nowrap"><input name="ns134" type="checkbox" value="1" $checked_data[134] id="mw-search-ns134" />&#160;<label for="mw-search-ns134">Skyrim</label></td>
 	</tr><tr>
-		<td style="white-space: nowrap"><input name="ns146" type="checkbox" value="1" $checked_data[146] id="mw-search-ns146" />&#160;<label for="mw-search-ns146">Dragonborn</label></td>
-	</tr><tr>
 		<td style="white-space: nowrap"><input name="ns142" type="checkbox" value="1" $checked_data[142] id="mw-search-ns142" />&#160;<label for="mw-search-ns142">Tes5Mod</label></td>
 	</tr>
 </table>
