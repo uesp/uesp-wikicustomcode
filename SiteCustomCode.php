@@ -180,6 +180,7 @@ $wgHooks['TitleSquidURLs'][] = 'onUespTitleSquidURLs';
 	/* Mobile Specific */
 $wgHooks['MinervaDiscoveryTools'][] = 'onUespMinervaDiscoveryTools';
 $wgHooks['MobilePersonalTools'][] = 'onUespMobilePersonalTools';
+$wgHooks['MobileMenu'][] = 'onUespMobileMenu';
 
 # Load messages
 
@@ -501,6 +502,28 @@ function onUespTitleSquidURLs( Title $title, array &$urls )
 	$urls[] = $newUrl5;
 	$urls[] = $newUrl6;
 	$urls[] = $newUrl7;
+}
+
+
+function onUespMobileMenu($menuType, &$menu) 
+{
+	$items = array();
+	
+	if ($menuType == "personal") onUespMobilePersonalTools($items);
+	if ($menuType == "discovery") onUespMinervaDiscoveryTools($items);
+	
+	foreach ($items as $item)
+	{
+		$comp = $item['components'][0];
+		
+		$menu->insert( $item['name'])
+				->addComponent(
+					$comp['text'],
+					$comp['href'],
+					$comp['class'],
+					array($comp['data-event-name'])
+				);
+	}
 }
 
 
