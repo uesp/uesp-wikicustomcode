@@ -182,6 +182,8 @@ $wgHooks['MinervaDiscoveryTools'][] = 'onUespMinervaDiscoveryTools';
 $wgHooks['MobilePersonalTools'][] = 'onUespMobilePersonalTools';
 $wgHooks['MobileMenu'][] = 'onUespMobileMenu';
 
+$wgHooks['BeforeInitialize'][] = 'onUespBeforeInitialize';
+
 # Load messages
 
 $wgExtensionMessagesFiles['sitecustomcode'] = $dir . 'SiteCustomCode.i18n.php';
@@ -348,6 +350,12 @@ function efSiteCustomCode() {
 		if (MobileContext::singleton()->isMobileDevice()) $uespIsMobile = true;
 	}
 	
+	return true;
+}
+
+
+function onUespBeforeInitialize() 
+{
 	if ($uespIsApp)
 	{
 		$wgOut->addModules( 'ext.UespCustomCode.app.scripts' );
@@ -363,8 +371,7 @@ function efSiteCustomCode() {
 		{
 		}
 	}
-
-	return true;
+	
 }
 
 
@@ -378,11 +385,13 @@ function UESP_isShowAds() {
 		$db = wfGetDB(DB_SLAVE);
 	
 		$res = $db->select('patreon_user', '*', ['user_id' => $wgUser->getId()]);
+		
 		if ($res->numRows() == 0) return true;
-	
+		
 		$row = $res->fetchRow();
+		
 		if ($row == null) return true;
-	
+		
 		$cachedUser = $row;
 	}
 
