@@ -356,6 +356,8 @@ function efSiteCustomCode() {
 
 function onUespBeforeInitialize() 
 {
+	global $wgOut;
+	
 	if ($uespIsApp)
 	{
 		$wgOut->addModules( 'ext.UespCustomCode.app.scripts' );
