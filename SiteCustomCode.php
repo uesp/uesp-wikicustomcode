@@ -367,7 +367,8 @@ function onUespBeforeInitialize()
 	{
 		if (UESP_isShowAds()) 
 		{
-			$wgOut->addModules( 'ext.UespCustomCode.ad' );
+				// Old Curse Ads
+			//$wgOut->addModules( 'ext.UespCustomCode.ad' );
 		}
 		else 
 		{
@@ -410,8 +411,17 @@ function UESP_beforePageDisplay(&$out) {
 	global $wgScriptPath;
 
 	SetUespEsoMapSessionData();
+	SetupUespLongitudeAds($out);
 	
 	return true;
+}
+
+
+function SetupUespLongitudeAds(&$out) {
+	
+	if (UESP_isShowAds()) {
+		$out->addScriptFile('https://lngtd.com/uesp.js');
+	}
 }
 
 
