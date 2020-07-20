@@ -357,6 +357,7 @@ function efSiteCustomCode() {
 function onUespBeforeInitialize() 
 {
 	global $wgOut;
+	global $uespIsApp;
 	
 	if ($uespIsApp)
 	{
@@ -616,6 +617,8 @@ function onUespMinervaDiscoveryTools (&$items)
 
 function onUespMobilePersonalTools (&$items)
 {
+	global $wgServer;
+	
 	$items[] = array(
 			'name' => 'viewdesktop',
 			'components' => array(
