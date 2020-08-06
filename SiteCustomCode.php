@@ -277,6 +277,15 @@ $wgResourceModules['ext.UespCustomCode.app.scripts'] = array(
 	'targets' => array( 'mobile' ),
 );
 
+$wgResourceModules['ext.UespCustomCode.analytics'] = array(
+	'position' => 'top',
+	'scripts' => array( 'modules/uespGoogleAnalytics.js' ),
+	'localBasePath' => __DIR__,
+	'remoteBasePath' => "$wgScriptPath/extensions/UespCustomCode/",
+	'targets' => array( 'desktop', 'mobile' ),
+);
+
+
 /*
  * Initialization functions
  */
@@ -368,6 +377,8 @@ function onUespBeforeInitialize()
 	{
 		if (UESP_isShowAds()) 
 		{
+			$wgOut->addModules( 'ext.UespCustomCode.analytics' );
+			
 				// Old Curse Ads
 			//$wgOut->addModules( 'ext.UespCustomCode.ad' );
 		}
