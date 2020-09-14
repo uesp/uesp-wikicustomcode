@@ -424,6 +424,7 @@ function UESP_beforePageDisplay(&$out) {
 
 	SetUespEsoMapSessionData();
 	SetupUespLongitudeAds($out);
+	SetupUespTwitchEmbed($out);
 	
 	return true;
 }
@@ -434,6 +435,13 @@ function SetupUespLongitudeAds(&$out) {
 	if (UESP_isShowAds()) {
 		$out->addScriptFile('https://lngtd.com/uesp.js');
 	}
+}
+
+
+function SetupUespTwitchEmbed(&$out) {
+	
+	$out->addScriptFile('https://player.twitch.tv/js/embed/v1.js');
+	
 }
 
 
