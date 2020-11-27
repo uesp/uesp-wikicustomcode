@@ -177,6 +177,8 @@ $wgHooks['BeforePageDisplay'][] = 'UESP_beforePageDisplay';
 //$wgHooks['SpecialSearchCreateLink'][] = 'onSpecialSearchCreateLink';
 $wgHooks['TitleSquidURLs'][] = 'onUespTitleSquidURLs';
 
+$wgHooks['UserMailerTransformMessage'][] = 'onUespUserMailerTransformMessage';
+
 	/* Mobile Specific */
 $wgHooks['MinervaDiscoveryTools'][] = 'onUespMinervaDiscoveryTools';
 $wgHooks['MobilePersonalTools'][] = 'onUespMobilePersonalTools';
@@ -514,6 +516,17 @@ function onSearchGetNearMatchBefore( $allSearchTerms, &$title ) {
 
 function onSpecialSearchCreateLink( $t, &$params ) {
 	$params[1] = preg_replace('/\((ESO) OR online\)/i', '$1', $params[1]);
+	
+	return true;
+}
+
+
+function onUespUserMailerTransformMessage(array $to, MailAddress $from, &$subject, &$headers, &$body, &$error ) 
+{
+	
+		// Fix issue with body hash changing which breaks DKIM verification
+		// Original 8bit encoding is changed to quoted-printable at some point in the mail chain.
+	$headers['Content-transfer-encoding'] = 'quoted-printable';
 	
 	return true;
 }
