@@ -528,6 +528,8 @@ function onUespUserMailerTransformMessage(array $to, MailAddress $from, &$subjec
 		// Original 8bit encoding is changed to quoted-printable at some point in the mail chain.
 	$headers['Content-transfer-encoding'] = 'quoted-printable';
 	
+	$body = quoted_printable_encode($body);
+	
 	return true;
 }
 
