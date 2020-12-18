@@ -7,7 +7,7 @@ class SiteNamespace {
 	protected $data;
 
 	// determine appropriate namespace for request
-	// * if ns is a NS_BASE or NS_ID, then the corresponding namespace will be returned
+	// * if ns is a NS_BASE, NS_ID, or any recognized alias, then the corresponding namespace will be returned
 	// * if ns is an integer, it's assumed to be an internal namespace index;
 	//   page_title will be checked for mod_name
 	// * if ns is NULL, both namespace index and page_title will be taken from parser
@@ -37,10 +37,20 @@ class SiteNamespace {
 			$ns_num = $ns_input;
 		elseif( ctype_digit( $ns_input ) )
 			$ns_num = (integer) $ns_input;
-		else
-			$ns_name = $ns_input;
-		
-		if (!is_null($ns_num)) {
+		else {
+			// RH70: Revamped to allow all aliases to work instead of just NS_ID.
+			// Else block was previously just $ns_name = $ns_input;
+			$ns_num = $wgContLang->getNsIndex( strtr( $ns_input, ' ', '_' ) );
+			if ( $ns_num ) {
+				$ns_num = MWNamespace::getSubject( $ns_num );
+				$ns_name = $wgContLang->getNsText( $ns_num );
+			}
+			else {
+				$ns_name = $ns_input;
+			}
+		}
+
+		if (is_null($ns_name) && !is_null($ns_num)) {
 			if( $ns_num===0 || $ns_num===1 ) {
 				$ns_num = 0;
 				$ns_name = '';
