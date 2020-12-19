@@ -14,7 +14,7 @@ class SiteNamespace {
 	function __construct($ns_input=NULL, &$parser=NULL, $page_title=NULL ) {
 		global $wgContLang, $egCustomSiteID, $wgTitle, $wgRequest;
 		
-		$ns_num = $ns_name = $titleid = NULL;
+		$ns_num = $ns_name = $titleid = $mod_name = NULL;
 		if ( is_null( $ns_input ) ) {
 			$title = $parser->getTitle();
 			// parser's title is invalid; try wgTitle instead
@@ -26,12 +26,13 @@ class SiteNamespace {
 				$title = Title::newFromText($tname);
 			}
 			// if everything failed, go back to parser :(
-			if (!is_object($title) || $title->getArticleID()<0) {
+			if (!is_object($title) || $title->getArticleID()<0)
 				$title = $parser->getTitle();
-			}
 			$ns_num = $title->getNamespace();
-			$page_title = $title->getText();
 			$titleid = $title->getArticleID();
+			$mod_name = $title->getText();
+			if( $i=stripos( $mod_name, '/' ))
+				$mod_name = substr( $mod_name, 0, $i);
 		}
 		elseif( is_int( $ns_input ) )
 			$ns_num = $ns_input;
@@ -39,7 +40,6 @@ class SiteNamespace {
 			$ns_num = (integer) $ns_input;
 		else {
 			// RH70: Revamped to allow all aliases to work instead of just NS_ID.
-			// Else block was previously just $ns_name = $ns_input;
 			$ns_num = $wgContLang->getNsIndex( strtr( $ns_input, ' ', '_' ) );
 			if ( $ns_num ) {
 				$ns_num = MWNamespace::getSubject( $ns_num );
@@ -61,13 +61,7 @@ class SiteNamespace {
 			}
 		}
 
-		if( is_null( $page_title ) )
-			$mod_name = NULL;
-		elseif( $i=stripos( $page_title, '/' ))
-			$mod_name = substr( $page_title, 0, $i);
-		else
-			$mod_name = $page_title;
-			
+		$ns_name = strtr($ns_name, '_', ' ');
 		$lines = explode("\n", wfMessage( strtolower($egCustomSiteID).'namespacelist' )->inContentLanguage()->text() );
 		$entries_ns = NULL;
 		$entries_mod = NULL;
@@ -77,7 +71,7 @@ class SiteNamespace {
 			if (substr($line,0,1)=='#' || strlen($line)==0)
 				continue;
 			$entries = explode( ";", $line );
-			$entries[0] = trim($entries[0]);
+			$entries[0] = strtr( trim($entries[0]), '_', ' ' );
 			if (count($entries)<1)
 				$entries[1] = strtoupper($entries[0]);
 			else
