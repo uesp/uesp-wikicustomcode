@@ -76,7 +76,7 @@ class SiteNamespace {
 				$entries[1] = strtoupper($entries[0]);
 			else
 				$entries[1] = strtoupper(trim($entries[1]));
-			if( $entries[0]==$ns_name || $entries[1]==strtoupper($ns_name) )
+			if( $entries[0]==$ns_name || ( strlen( $entries[1] > 0 ) && $entries[1]==strtoupper($ns_name) ))
 				$entries_ns = $entries;
 			elseif( !is_null( $mod_name ) && ($entries[0]==$ns_name.':'.$mod_name || $entries[0] == $ns_name.':'.$mod_name.'/')) {
 				$entries_mod = $entries;
