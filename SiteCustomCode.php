@@ -401,23 +401,19 @@ function UESP_isShowAds() {
 	if ($cachedUser == null) {
 		$db = wfGetDB(DB_SLAVE);
 	
-		$res = $db->select('patreon_user', '*', ['user_id' => $wgUser->getId()]);
-		
+		$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()]);
 		if ($res->numRows() == 0) return true;
 		
 		$row = $res->fetchRow();
-		
 		if ($row == null) return true;
 		
 		$cachedUser = $row;
 	}
 
-	$hasPaid = ($cachedUser['has_donated'] > 0);
+	$hasPaid = ($cachedUser['lifetimePledgeCents'] > 0 || $cachedUser['has_donated'] > 0);
+	//error_log("Has Donated: " . $hasPaid);
 	
-	//error_log("Has Donated: " . $cachedUser['has_donated']);
-	
-	if ($hasPaid) return false;
-	return true;
+	return !$hasPaid;
 }
 
 
