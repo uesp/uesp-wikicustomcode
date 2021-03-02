@@ -287,7 +287,6 @@ $wgResourceModules['ext.UespCustomCode.analytics'] = array(
 	'targets' => array( 'desktop', 'mobile' ),
 );
 
-
 /*
  * Initialization functions
  */
