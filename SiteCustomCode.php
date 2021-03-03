@@ -428,9 +428,14 @@ function UESP_beforePageDisplay(&$out) {
 
 
 function SetupUespLongitudeAds(&$out) {
+	global $uespIsApp;
 	
 	if (UESP_isShowAds()) {
+		$out->addInlineScript("var uesptopad = document.getElementById('topad'); if (uesptopad) uesptopad.style = 'height:90px;'; ");
 		$out->addScriptFile('https://lngtd.com/uesp.js');
+	}
+	else {
+		$out->addInlineScript("var uesptopad = document.getElementById('topad'); if (uesptopad) uesptopad.style = 'display:none;'; ");
 	}
 }
 
