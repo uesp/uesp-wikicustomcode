@@ -86,23 +86,29 @@ class SiteSpecialSearch extends SpecialSearch {
 		<td>
 			<b>Online</b><br>
 			<span style="white-space: nowrap"><input name="ns144" type="checkbox" value="1" $checked_data[144] id="mw-search-ns144" />&#160;<label for="mw-search-ns144">Online</label></span><br>
-			<span style="white-space: nowrap"><input name="ns148" type="checkbox" value="1" $checked_data[148] id="mw-search-ns148" />&#160;<label for="mw-search-ns148">ESOMod</label></span>
+			<span style="white-space: nowrap"><input name="ns148" type="checkbox" value="1" $checked_data[148] id="mw-search-ns148" />&#160;<label for="mw-search-ns148">ESO Mod</label></span>
 		</td><td>
 			<b>Skyrim</b><br>
 			<span style="white-space: nowrap"><input name="ns134" type="checkbox" value="1" $checked_data[134] id="mw-search-ns134" />&#160;<label for="mw-search-ns134">Skyrim</label></span><br>
 			<span style="white-space: nowrap"><input name="ns166" type="checkbox" value="1" $checked_data[166] id="mw-search-ns166" />&#160;<label for="mw-search-ns166">VSE</label></span><br>
-			<span style="white-space: nowrap"><input name="ns142" type="checkbox" value="1" $checked_data[142] id="mw-search-ns142" />&#160;<label for="mw-search-ns142">Tes5Mod</label></span>
+			<span style="white-space: nowrap"><input name="ns142" type="checkbox" value="1" $checked_data[142] id="mw-search-ns142" />&#160;<label for="mw-search-ns142">Skyrim Mod</label></span><br>
+			<span style="white-space: nowrap"><input name="ns178" type="checkbox" value="1" $checked_data[178] id="mw-search-ns178" />&#160;<label for="mw-search-ns178">Beyond Skyrim</label></span>
 		</td><td>
 			<b>Oblivion</b><br>
 			<span style="white-space: nowrap"><input name="ns116" type="checkbox" value="1" $checked_data[116] id="mw-search-ns116" />&#160;<label for="mw-search-ns116">Oblivion</label></span><br>
 			<span style="white-space: nowrap"><input name="ns126" type="checkbox" value="1" $checked_data[126] id="mw-search-ns126" />&#160;<label for="mw-search-ns126">Shivering</label></span><br>
-			<span style="white-space: nowrap"><input name="ns124" type="checkbox" value="1" $checked_data[124] id="mw-search-ns124" />&#160;<label for="mw-search-ns124">Tes4Mod</label></span>
+			<span style="white-space: nowrap"><input name="ns124" type="checkbox" value="1" $checked_data[124] id="mw-search-ns124" />&#160;<label for="mw-search-ns124">Oblivion Mod</label></span><br>
+			<span style="white-space: nowrap"><input name="ns174" type="checkbox" value="1" $checked_data[174] id="mw-search-ns174" />&#160;<label for="mw-search-ns174">Better Cities</label></span>
 		</td><td>
 			<b>Morrowind</b><br>
 			<span style="white-space: nowrap"><input name="ns110" type="checkbox" value="1" $checked_data[110] id="mw-search-ns110" />&#160;<label for="mw-search-ns110">Morrowind</label></span><br>
 			<span style="white-space: nowrap"><input name="ns112" type="checkbox" value="1" $checked_data[112] id="mw-search-ns112" />&#160;<label for="mw-search-ns112">Tribunal</label></span><br>
 			<span style="white-space: nowrap"><input name="ns114" type="checkbox" value="1" $checked_data[114] id="mw-search-ns114" />&#160;<label for="mw-search-ns114">Bloodmoon</label></span><br>
-			<span style="white-space: nowrap"><input name="ns122" type="checkbox" value="1" $checked_data[122] id="mw-search-ns122" />&#160;<label for="mw-search-ns122">Tes3Mod</label></span>
+			<span style="white-space: nowrap"><input name="ns122" type="checkbox" value="1" $checked_data[122] id="mw-search-ns122" />&#160;<label for="mw-search-ns122">Morrowind Mod</label></span><br>
+			<span style="white-space: nowrap"><input name="ns168" type="checkbox" value="1" $checked_data[168] id="mw-search-ns168" />&#160;<label for="mw-search-ns168">Tamriel Data</label></span><br>
+			<span style="white-space: nowrap"><input name="ns170" type="checkbox" value="1" $checked_data[170] id="mw-search-ns170" />&#160;<label for="mw-search-ns170">Tamriel Rebuilt</label></span><br>
+			<span style="white-space: nowrap"><input name="ns172" type="checkbox" value="1" $checked_data[172] id="mw-search-ns172" />&#160;<label for="mw-search-ns172">Project Tamriel</label></span><br>
+			<span style="white-space: nowrap"><input name="ns176" type="checkbox" value="1" $checked_data[176] id="mw-search-ns176" />&#160;<label for="mw-search-ns176">Morrowind Rebirth</label></span>
 		</td><td>
 			<b>Older Games</b><br>
 			<span style="white-space: nowrap"><input name="ns108" type="checkbox" value="1" $checked_data[108] id="mw-search-ns108" />&#160;<label for="mw-search-ns108">Redguard</label></span><br>
