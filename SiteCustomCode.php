@@ -410,8 +410,8 @@ function UESP_isShowAds() {
 		
 		$cachedUser = $row;
 	}
-
-	$hasPaid = ($cachedUser['lifetimePledgeCents'] > 0 || $cachedUser['has_donated'] > 0);
+	
+	$hasPaid = ($cachedUser['lifetimePledgeCents'] > 0);
 	//error_log("Has Donated: " . $hasPaid);
 	
 	return !$hasPaid;
