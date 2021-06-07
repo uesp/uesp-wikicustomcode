@@ -316,9 +316,11 @@ class SiteMiscFunctions {
 	public static function onGetDefaultSortkey( $title, &$sortkey ) {
 		// This is a bit of a hack, since the new implementSortableCorename() wants a parser object we no longer have available.
 		// Since the subpages are no longer a concern, we simply strip off the subpage name and pass that directly to doSortable().
-		$sections = explode( '/', $title->getText() );
-		$titleKey = $sections[count($sections)-1];
-		$sortkey = self::doSortable($titleKey);
+		if ($title->getNamespace() >= 100) {
+			$sections = explode( '/', $title->getText() );
+			$titleKey = $sections[count($sections)-1];
+			$sortkey = self::doSortable($titleKey);
+		}
 		return true;
 	}
 	
