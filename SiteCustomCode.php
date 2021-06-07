@@ -177,6 +177,8 @@ $wgHooks['BeforePageDisplay'][] = 'UESP_beforePageDisplay';
 //$wgHooks['SpecialSearchCreateLink'][] = 'onSpecialSearchCreateLink';
 $wgHooks['TitleSquidURLs'][] = 'onUespTitleSquidURLs';
 
+$wgHooks['ApiOpenSearchSuggest'][] = 'onUespApiOpenSearchSuggest';
+
 $wgHooks['UserMailerTransformMessage'][] = 'onUespUserMailerTransformMessage';
 
 	/* Mobile Specific */
@@ -408,8 +410,8 @@ function UESP_isShowAds() {
 		
 		$cachedUser = $row;
 	}
-
-	$hasPaid = ($cachedUser['lifetimePledgeCents'] > 0 || $cachedUser['has_donated'] > 0);
+	
+	$hasPaid = ($cachedUser['lifetimePledgeCents'] > 0);
 	//error_log("Has Donated: " . $hasPaid);
 	
 	return !$hasPaid;
@@ -418,12 +420,25 @@ function UESP_isShowAds() {
 
 function UESP_beforePageDisplay(&$out) {
 	global $wgScriptPath;
-
+	
+	SetupUespFavIcons($out);
+	
 	SetUespEsoMapSessionData();
 	SetupUespLongitudeAds($out);
 	SetupUespTwitchEmbed($out);
 	
 	return true;
+}
+
+
+function SetupUespFavIcons(&$out) {
+	$out->addLink(array('rel' => 'icon', 'type' => 'image/png', 'href' => 'https://images.uesp.net/favicon-16.png',  'sizes' => '16x16'));
+	$out->addLink(array('rel' => 'icon', 'type' => 'image/png', 'href' => 'https://images.uesp.net/favicon-32.png',  'sizes' => '32x32'));
+	$out->addLink(array('rel' => 'icon', 'type' => 'image/png', 'href' => 'https://images.uesp.net/favicon-48.png',  'sizes' => '48x48'));
+	$out->addLink(array('rel' => 'icon', 'type' => 'image/png', 'href' => 'https://images.uesp.net/favicon-64.png',  'sizes' => '64x64'));
+	$out->addLink(array('rel' => 'icon', 'type' => 'image/png', 'href' => 'https://images.uesp.net/favicon-96.png',  'sizes' => '96x96'));
+	$out->addLink(array('rel' => 'icon', 'type' => 'image/png', 'href' => 'https://images.uesp.net/favicon-128.png', 'sizes' => '128x128'));
+	$out->addLink(array('rel' => 'icon', 'type' => 'image/png', 'href' => 'https://images.uesp.net/favicon-256.png', 'sizes' => '256x256'));
 }
 
 
@@ -519,6 +534,12 @@ function onSpecialSearchCreateLink( $t, &$params ) {
 	
 	return true;
 }
+
+
+function onUespApiOpenSearchSuggest(array &$results)
+{
+}
+
 
 
 function onUespUserMailerTransformMessage(array $to, MailAddress $from, &$subject, &$headers, &$body, &$error ) 
