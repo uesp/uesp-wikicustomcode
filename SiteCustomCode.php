@@ -423,7 +423,7 @@ function UESP_beforePageDisplay(&$out) {
 	
 	SetupUespFavIcons($out);
 	
-	SetUespEsoMapSessionData();
+	SetUespMapSessionData();
 	SetupUespLongitudeAds($out);
 	SetupUespTwitchEmbed($out);
 	
@@ -462,17 +462,30 @@ function SetupUespTwitchEmbed(&$out) {
 }
 
 
-function SetUespEsoMapSessionData()
+function SetUespMapSessionData()
 {
 	global $_SESSION, $wgUser;
 	
+	$_SESSION['UESP_AllMap_canEdit'] = false;
 	$_SESSION['UESP_EsoMap_canEdit'] = false;
+	$_SESSION['UESP_TRMap_canEdit'] = false;
+	$_SESSION['UESP_OtherMap_canEdit'] = false;
 	
 	if ($wgUser == null) return;
 	
-	if( $wgUser->isAllowed( 'esomapedit' ))
+	if ($wgUser->isAllowed( 'esomapedit' ))
 	{
 		$_SESSION['UESP_EsoMap_canEdit'] = true;
+	}
+	
+	if ($wgUser->isAllowed( 'mapedit' ) || $wgUser->isAllowed( 'othermapedit' ))
+	{
+		$_SESSION['UESP_OtherMap_canEdit'] = true;
+	}
+	
+	if ($wgUser->isAllowed( 'trmapedit' ))
+	{
+		$_SESSION['UESP_TRMap_canEdit'] = true;
 	}
 }
 
