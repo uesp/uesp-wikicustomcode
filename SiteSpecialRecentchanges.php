@@ -126,14 +126,14 @@ class SiteSpecialRecentChanges extends SpecialRecentChanges {
 	// NB when running actual query, I want to make use of the new_name_timestamp index if either
 	// of my conditions are in effect (filtering by namespace should be much faster with index)
 	// easiest way to "force" that is by setting $opts['namespace'] to a bogus value
-	public function doMainQuery( $conds, $opts ) {
+	public function doMainQuery( $tables, $fields, $conds, $query_options, $join_conds, FormOptions $opts ) {
 		global $wgUser;
 		if (($opts['usecustomns'] || $opts['hideuserspace']) && empty($opts['namespace'])) {
 			$opts->setValue('invert', false);
 			$opts->setValue('namespace', -1);
 			
 		}
-		$res = parent::doMainQuery( $conds, $opts );
+		$res = parent::doMainQuery( $tables, $fields, $conds, $query_options, $join_conds, $opts );
 		$opts->setValue('namespace', NULL);
 		return $res;
 	}

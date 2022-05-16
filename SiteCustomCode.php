@@ -185,6 +185,7 @@ $wgHooks['UserMailerTransformMessage'][] = 'onUespUserMailerTransformMessage';
 $wgHooks['MinervaDiscoveryTools'][] = 'onUespMinervaDiscoveryTools';
 $wgHooks['MobilePersonalTools'][] = 'onUespMobilePersonalTools';
 $wgHooks['MobileMenu'][] = 'onUespMobileMenu';
+$wgHooks['OutputPageBeforeHTML'][] = 'uespMobileAddTopAdDiv';
 
 $wgHooks['BeforeInitialize'][] = 'onUespBeforeInitialize';
 
@@ -206,6 +207,7 @@ $wgHooks['IsFileCacheable'][] = 'SiteMiscFunctions::isFileCacheable';
 # To disable these features, change <site>'settrail' to 0 (system message)
 $wgHooks['OutputPageParserOutput'][] = 'SiteBreadCrumbTrail::getCachedTrail';
 $wgHooks['SkinSubPageSubtitle'][] = 'SiteBreadCrumbTrail::subpageHook';
+
 
 # Hook to add a rel=canonical tag to the header
 $wgHooks['OutputPageParserOutput'][] = 'SiteMiscFunctions::addCanonicalToHeader';
@@ -699,6 +701,21 @@ function onUespMobilePersonalTools (&$items)
 			),
 		);
 }
+
+
+function uespMobileAddTopAdDiv( &$out, &$text ) 
+{
+	global $uespIsMobile;
+	static $hasAddedDiv = false;
+	if ($hasAddedDiv) return true;
+	if (!$uespIsMobile) return true;
+	
+	$text = "<div id='uesp_M_1'></div>" . $text;
+	
+	$hasAddedDiv = true;
+	return true;
+}
+
 
 // group pages appear under at Special:SpecialPages
 // $wgSpecialPageGroups['Preferences'] = 'users';
