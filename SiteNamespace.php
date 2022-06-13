@@ -12,13 +12,12 @@ class SiteNamespace
 	// * if ns is an integer, it's assumed to be an internal namespace index;
 	//   page_title will be checked for mod_name
 	// * if ns is NULL, both namespace index and page_title will be taken from parser
-	function __construct($ns_input = NULL, &$parser = NULL, $page_title = NULL)
+	function __construct($ns_input = NULL, $parser = NULL, $page_title = NULL)
 	{
 		global $wgContLang, $egCustomSiteID, $wgTitle, $wgRequest;
-
 		$ns_num = $ns_name = $titleid = $mod_name = NULL;
 		if (is_null($ns_input)) {
-			$title = $parser->getTitle();
+			$title = is_null($page_title) ? $parser->getTitle() : $page_title;
 			// parser's title is invalid; try wgTitle instead
 			// (can happen in strange circumstances... API?  job queue?  If it is the API, where can I get title???)
 			if ($title->getArticleID() <= 0)
