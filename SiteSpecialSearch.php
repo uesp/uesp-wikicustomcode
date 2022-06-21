@@ -51,7 +51,46 @@ class SiteSpecialSearch extends SpecialSearch {
 
 		//error_log("SearchLog: C3=". count($this->namespaces));
 	}
-
+	
+	
+	public static function StringEndsWith($haystack, $needle) 
+	{
+		$length = strlen($needle);
+		return $length > 0 ? substr($haystack, -$length) === $needle : true;
+	}
+	
+	
+	protected function showCreateLink( $title, $num, $titleMatches, $textMatches ) 
+	{
+		if ($titleMatches && $titleMatches->numRows() > 0) 
+		{
+			$this->getOutput()->addHTML( '<p></p>' );
+			return;
+		}
+		
+			// Don't display the "Create the page..." if there are any namespace matches with the exact title
+		if ($textMatches)
+		{
+			$results = $textMatches->extractResults();
+			$searchText = ':' . $title->getPrefixedText();
+			
+			foreach ($results as $result)
+			{
+				$title = $result->getTitle();
+				$text = $title->getPrefixedText();
+				
+				if (self::StringEndsWith($text, $searchText)) 
+				{
+					$this->getOutput()->addHTML( '<p></p>' );
+					return;
+				}
+			}
+		}
+		
+		return parent::showCreateLink( $title, $num, $titleMatches, $textMatches );
+	}
+	
+	
 	protected function powerSearchBox ($term, $opts)
 	{
 		$checked_data = array();
