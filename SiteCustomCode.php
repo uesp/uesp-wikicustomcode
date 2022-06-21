@@ -177,8 +177,6 @@ $wgHooks['BeforePageDisplay'][] = 'UESP_beforePageDisplay';
 //$wgHooks['SpecialSearchCreateLink'][] = 'onSpecialSearchCreateLink';
 $wgHooks['TitleSquidURLs'][] = 'onUespTitleSquidURLs';
 
-$wgHooks['ApiOpenSearchSuggest'][] = 'onUespApiOpenSearchSuggest';
-
 $wgHooks['UserMailerTransformMessage'][] = 'onUespUserMailerTransformMessage';
 
 	/* Mobile Specific */
@@ -544,17 +542,12 @@ function onSearchGetNearMatchBefore( $allSearchTerms, &$title ) {
 	return !$title->exists();
 }
 
+
 function onSpecialSearchCreateLink( $t, &$params ) {
 	$params[1] = preg_replace('/\((ESO) OR online\)/i', '$1', $params[1]);
 	
 	return true;
 }
-
-
-function onUespApiOpenSearchSuggest(array &$results)
-{
-}
-
 
 
 function onUespUserMailerTransformMessage(array $to, MailAddress $from, &$subject, &$headers, &$body, &$error ) 
@@ -707,6 +700,7 @@ function uespMobileAddTopAdDiv( &$out, &$text )
 {
 	global $uespIsMobile;
 	static $hasAddedDiv = false;
+	
 	if ($hasAddedDiv) return true;
 	if (!$uespIsMobile) return true;
 	
