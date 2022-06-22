@@ -56,7 +56,7 @@ class SiteSpecialSearch extends SpecialSearch {
 	public static function StringEndsWith($haystack, $needle) 
 	{
 		$length = strlen($needle);
-		return $length > 0 ? substr($haystack, -$length) === $needle : true;
+		return $length > 0 ? (strcasecmp(substr($haystack, -$length), $needle) == 0) : true;
 	}
 	
 	
@@ -72,12 +72,13 @@ class SiteSpecialSearch extends SpecialSearch {
 		if ($textMatches)
 		{
 			$results = $textMatches->extractResults();
+			$textMatches->rewind();
 			$searchText = ':' . $title->getPrefixedText();
 			
 			foreach ($results as $result)
 			{
-				$title = $result->getTitle();
-				$text = $title->getPrefixedText();
+				$thisTitle = $result->getTitle();
+				$text = $thisTitle->getPrefixedText();
 				
 				if (self::StringEndsWith($text, $searchText)) 
 				{
