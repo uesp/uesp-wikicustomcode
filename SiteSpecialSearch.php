@@ -6,24 +6,25 @@ global $IP;
 require_once "$IP/includes/specials/SpecialSearch.php";
 
 
-class SiteSpecialSearch extends SpecialSearch {
+class SiteSpecialSearch extends SpecialSearch
+{
 
 	protected $searchTalkPages;
 
-	public function __construct() {
-                parent::__construct( 'Search' );
-
+	public function __construct() 
+	{
+		parent::__construct( 'Search' );
 		$this->searchTalkPages = false;
-        }
+	}
 
 	public function load()
 	{
 		parent::load();
-
+		
 		$request = $this->getRequest();
 		$default = $request->getBool( 'profile') ? 0 : 1;
 		$this->searchTalkPages = $request->getBool('talkpages', $default ) ? 1 : 0;
-
+		
 		if ( $this->searchTalkPages )
 		{
 			$this->enableTalkPageSearch();
@@ -33,27 +34,25 @@ class SiteSpecialSearch extends SpecialSearch {
 			$this->setExtraParam ( 'talkpages', '0' );
 		}
 	}
-
+	
 	protected function enableTalkPageSearch ()
 	{
 		$orignamespaces = $this->namespaces;
 		//$talknamespaces = array();
-
+		
 		foreach ( $orignamespaces as $namespace => $name )
 		{
 			$this->namespaces[] = $name | 1;
 		}
-
+		
 		//error_log("SearchLog: C1=" . count($this->namespaces) . "  C2=" . count($talknamespaces));
-
 		//$this->namespaces = array_merge( $this->namespaces, $talknamespaces );
 		//$this->namespaces = $this->name
-
 		//error_log("SearchLog: C3=". count($this->namespaces));
 	}
 	
 	
-	public static function StringEndsWith($haystack, $needle) 
+	public static function StringEndsWith($haystack, $needle)
 	{
 		$length = strlen($needle);
 		return $length > 0 ? (strcasecmp(substr($haystack, -$length), $needle) == 0) : true;
@@ -96,19 +95,19 @@ class SiteSpecialSearch extends SpecialSearch {
 	{
 		$checked_data = array();
 		$checked_talkpages = "";
-
+		
 		if ( $this->searchTalkPages ) $checked_talkpages = 'checked="checked"';
-
+		
 			//See which namespace boxes to check
 		foreach ( SearchEngine::searchableNamespaces() as $namespace => $name) {
-
+		
 			if ( in_array( $namespace, $this->namespaces ) ) 
 				$checked_data[$namespace] = 'checked="checked"';
 			else
 				$checked_data[$namespace] = '';
-
+		
 		}
-
+		
 		$remember_token = "";
 		$user = $this->getUser();
 		if ( $user->isLoggedIn() ) {
@@ -119,7 +118,7 @@ class SiteSpecialSearch extends SpecialSearch {
 		}
 		
 		$result = <<< UESP_EOT
-
+		
 <fieldset id="mw-searchoptions" style="margin:0em;"><legend>Advanced search</legend>
 <table style="clear:both; text-align:top" cellpadding="0" cellspacing="0" border="0">
 	<tr style="vertical-align:top">
@@ -212,4 +211,4 @@ UESP_EOT;
 
 };
 
-?>
+
