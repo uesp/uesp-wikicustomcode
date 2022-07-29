@@ -325,13 +325,14 @@ class SiteMiscFunctions
 
 	public static function onGetDefaultSortkey($title, &$sortkey)
 	{
+		// TODO: In theory, if the namespace supports subpages, this should break the entire title into sections and
+		// run doSortable on each one individually, but that's an edge-case...is it worth the extra processing?
 		$nsUesp = new SiteNamespace(null, null, $title);
 		$nsFull = $nsUesp->get_ns_full();
-		$titleKey = strpos($nsFull, ':') > 0
-			? substr($title->getPrefixedText(), strlen($nsFull))
-			: $title->getText();
-		$sortkey = self::doSortable($titleKey);
-		return true;
+
+		// This should be safe, since nsUesp should always return a namespace of at least this length.
+		$name = substr($title->getPrefixedText(), strlen($nsFull));
+		$sortkey = self::doSortable($name);
 	}
 
 	public static function markPatrolled($rcid, $user, $wcOnlySysopsCanPatrol)
