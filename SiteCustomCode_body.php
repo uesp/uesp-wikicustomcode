@@ -325,13 +325,12 @@ class SiteMiscFunctions
 
 	public static function onGetDefaultSortkey($title, &$sortkey)
 	{
-		// This is a bit of a hack, since the new implementSortableCorename() wants a parser object we no longer have available.
-		// Since the subpages are no longer a concern, we simply strip off the subpage name and pass that directly to doSortable().
-		if ($title->getNamespace() >= 100) {
-			$sections = explode('/', $title->getText());
-			$titleKey = $sections[count($sections) - 1];
-			$sortkey = self::doSortable($titleKey);
-		}
+		$nsUesp = new SiteNamespace(null, null, $title);
+		$nsFull = $nsUesp->get_ns_full();
+		$titleKey = strpos($nsFull, ':') > 0
+			? substr($title->getPrefixedText(), strlen($nsFull))
+			: $title->getText();
+		$sortkey = self::doSortable($titleKey);
 		return true;
 	}
 
@@ -512,9 +511,9 @@ class SiteBreadCrumbTrail
 		// make it possible to add vertical pipes -- which otherwise would get misread by the parsing
 		$separator = preg_replace('/\!/', '|', $separator);
 		if (strlen($separator) > 1 && $separator{
-		0} == substr($separator, -1, 1) && ($separator{
-		0} == '\'' || $separator{
-		0} == '"'))
+			0} == substr($separator, -1, 1) && ($separator{
+			0} == '\'' || $separator{
+			0} == '"'))
 			$separator = substr($separator, 1, -1);
 		return $output;
 	}
