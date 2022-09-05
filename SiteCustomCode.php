@@ -362,14 +362,25 @@ function efSiteCustomCode() {
 	{
 		if (MobileContext::singleton()->isMobileDevice()) 
 		{
-			global $wgHooks;
-			
 			$uespIsMobile = true;
-			$wgHooks['SpecialPage_initList'][] = 'efSiteMobilePrefsSpecialPageInit';
+			
+				// These hooks are here so as they are called after the same hook in MobileFrontEnd
+			setupUespMobileHooks();
 		}
 	}
 	
 	return true;
+}
+
+
+function setupUespMobileHooks()
+{
+	global $wgHooks;
+	
+	error_log("setupUespMobileHooks");
+	
+	$wgHooks['SpecialPage_initList'][] = 'efSiteMobilePrefsSpecialPageInit';
+	$wgHooks['RequestContextCreateSkinMobile'][] = 'efSiteRequestContextCreateSkinMobile';
 }
 
 
@@ -510,6 +521,18 @@ function SetUespMapSessionData()
 
 function efSiteMobilePrefsSpecialPageInit(&$aSpecialPages) {
 	$aSpecialPages['Preferences'] = 'SiteSpecialMobilePreferences';
+}
+
+
+function efSiteRequestContextCreateSkinMobile(MobileContext $mobileContext, Skin $skin) {
+	
+	if ( $skin instanceof SkinMinerva ) {
+		
+			// Turn off the use of the Special:MobileOptions page for preferences
+		$skin->setSkinOptions( [
+				SkinMinerva::OPTION_MOBILE_OPTIONS => false,
+			] );
+	}
 }
 
 
