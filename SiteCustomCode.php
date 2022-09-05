@@ -466,26 +466,37 @@ function SetUespMapSessionData()
 {
 	global $_SESSION, $wgUser;
 	
-	$_SESSION['UESP_AllMap_canEdit'] = false;
-	$_SESSION['UESP_EsoMap_canEdit'] = false;
-	$_SESSION['UESP_TRMap_canEdit'] = false;
-	$_SESSION['UESP_OtherMap_canEdit'] = false;
+		// TODO: Unsure when we have to migrate to the new session object (should have been 1.27/28)
+	//$session = \MediaWiki\Session\SessionManager::getGlobalSession();
+	
+	$_SESSION['UESP_AllMap_canEdit'] = 0;
+	$_SESSION['UESP_EsoMap_canEdit'] = 0;
+	$_SESSION['UESP_TRMap_canEdit'] = 0;
+	$_SESSION['UESP_OtherMap_canEdit'] = 0;
+	
+	//$session->set('UESP_AllMap_canEdit', 0);
+	//$session->set('UESP_EsoMap_canEdit', 0);
+	//$session->set('UESP_TRMap_canEdit', 0);
+	//$session->set('UESP_OtherMap_canEdit', 0);
 	
 	if ($wgUser == null) return;
 	
 	if ($wgUser->isAllowed( 'esomapedit' ))
 	{
-		$_SESSION['UESP_EsoMap_canEdit'] = true;
+		$_SESSION['UESP_EsoMap_canEdit'] = 1;
+		//$session->set('UESP_AllMap_canEdit', 1);
 	}
 	
 	if ($wgUser->isAllowed( 'mapedit' ) || $wgUser->isAllowed( 'othermapedit' ))
 	{
-		$_SESSION['UESP_OtherMap_canEdit'] = true;
+		$_SESSION['UESP_OtherMap_canEdit'] = 1;
+		//$session->set('UESP_OtherMap_canEdit', 1);
 	}
 	
 	if ($wgUser->isAllowed( 'trmapedit' ))
 	{
-		$_SESSION['UESP_TRMap_canEdit'] = true;
+		$_SESSION['UESP_TRMap_canEdit'] = 1;
+		//$session->set('UESP_TRMap_canEdit', 1);
 	}
 }
 
