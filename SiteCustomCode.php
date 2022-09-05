@@ -484,7 +484,7 @@ function SetUespMapSessionData()
 	if ($wgUser->isAllowed( 'esomapedit' ))
 	{
 		$_SESSION['UESP_EsoMap_canEdit'] = 1;
-		//$session->set('UESP_AllMap_canEdit', 1);
+		//$session->set('UESP_EsoMap_canEdit', 1);
 	}
 	
 	if ($wgUser->isAllowed( 'mapedit' ) || $wgUser->isAllowed( 'othermapedit' ))
