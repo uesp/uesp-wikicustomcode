@@ -163,6 +163,7 @@ $wgAutoloadClasses['SiteOldChangesList'] = $dir . 'SiteChangesList.php';
 $wgAutoloadClasses['SiteEnhancedChangesList'] = $dir . 'SiteChangesList.php';
 $wgAutoloadClasses['SiteSpecialRandompage'] = $dir . 'SiteSpecialRandompage.php';
 $wgAutoloadClasses['UespWebpHandler'] = $dir . 'UespWebpHandler.php';
+$wgAutoloadClasses['SiteSpecialMobilePreferences'] = $dir . 'SpecialMobilePreferences.php';
 
 $wgMediaHandlers['image/webp'] = 'UespWebpHandler';
 
@@ -359,7 +360,13 @@ function efSiteCustomCode() {
 	
 	if (class_exists("MobileContext"))
 	{
-		if (MobileContext::singleton()->isMobileDevice()) $uespIsMobile = true;
+		if (MobileContext::singleton()->isMobileDevice()) 
+		{
+			global $wgHooks;
+			
+			$uespIsMobile = true;
+			$wgHooks['SpecialPage_initList'][] = 'efSiteMobilePrefsSpecialPageInit';
+		}
 	}
 	
 	return true;
@@ -500,6 +507,12 @@ function SetUespMapSessionData()
 	}
 }
 
+
+function efSiteMobilePrefsSpecialPageInit(&$aSpecialPages) {
+	$aSpecialPages['Preferences'] = 'SiteSpecialMobilePreferences';
+}
+
+
 /**
  * SpecialPage_initList hook
  * Customize the list of special pages
@@ -507,6 +520,7 @@ function SetUespMapSessionData()
  *   override some standard special pages with tweaked versions
  */
 function efSiteSpecialPageInit(&$aSpecialPages) {
+	
 	$dir = dirname(__FILE__) . '/';
 // remove unnecessary pages
 	unset($aSpecialPages['Booksources']);
