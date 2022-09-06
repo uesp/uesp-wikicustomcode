@@ -377,8 +377,6 @@ function setupUespMobileHooks()
 {
 	global $wgHooks;
 	
-	error_log("setupUespMobileHooks");
-	
 	$wgHooks['SpecialPage_initList'][] = 'efSiteMobilePrefsSpecialPageInit';
 	$wgHooks['RequestContextCreateSkinMobile'][] = 'efSiteRequestContextCreateSkinMobile';
 }
