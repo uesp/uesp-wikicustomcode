@@ -105,12 +105,12 @@ class SiteSpecialSearch extends SpecialSearch
 	 * @param string $term
 	 */
 	public function showResults( $term ) {
-		global $wgContLang;
+		global $wgContLang, $wgVersion;
 		
 			// Log notice to update code in future versions
 		if (version_compare( $wgVersion, '1.29', '>' ))
 		{
-			wfWarn("Update SiteSpecialSearch::showResults() with v1.30 code!", 1, E_WARNING);
+			wfWarn("Update SiteSpecialSearch::showResults() with v1.30 code!", 1, E_USER_WARNING);
 		}
 		
 		if ( $this->searchEngineType !== null ) {
