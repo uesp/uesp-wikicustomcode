@@ -71,7 +71,7 @@ class SiteSpecialSearch extends SpecialSearch
 	
 	protected function showCreateLink( $title, $num, $titleMatches, $textMatches ) 
 	{
-		if ($titleMatches && $titleMatches->numRows() > 0) 
+		if (($titleMatches && $titleMatches->numRows() > 0) || $title == null)
 		{
 			$this->getOutput()->addHTML( '<p></p>' );
 			return;
