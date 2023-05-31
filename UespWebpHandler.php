@@ -2,7 +2,7 @@
 /*
  * UespWebpHandler.php -- Dave Humphrey (dave@uesp.net), April 2020
  * 
- * Very simple handler for WEBP images that supports resizing to WEBP format (instead of PNT) as well as basic 
+ * Very simple handler for WEBP images that supports resizing to WEBP format (instead of PNG) as well as basic 
  * resizing of animated images. Note that resizing animated WEBPs can result in imperfect replicas.
  * 
  * Uses the Google shell applications available in the webp-libtools package or at:
