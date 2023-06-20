@@ -26,6 +26,8 @@ $wgUespWebpCustomConvert = 'cwebp -resize %w %h %s -o %d';
 
 class UespWebpHandler extends WebPHandler 
 {
+	public $ENABLE_ANIMATED_THUMBNAILS = false;
+	
 	
 	public function canRender( $file ) {
 		return true;
@@ -78,6 +80,8 @@ class UespWebpHandler extends WebPHandler
 		global $wgUespWebpCustomConvert;
 		global $wgUespWebpBinPath;
 		
+		//if (!$this->ENABLE_ANIMATED_THUMBNAILS) return transformCustomNonAnimated( $image, $params );
+		
 		$src       = wfEscapeShellArg( $params['srcPath'] );
 		$dst       = wfEscapeShellArg( $params['dstPath'] );
 		$width     = wfEscapeShellArg( $params['physicalWidth'] );
@@ -86,7 +90,7 @@ class UespWebpHandler extends WebPHandler
 		$srcHeight = $params['srcHeight'];
 		$pctWidth  = floatval($params['physicalWidth']) / floatval($srcWidth);
 		$pctHeight = floatval($params['physicalHeight'])/ floatval($srcHeight);
-				
+		
 		$cmd = "$wgUespWebpBinPath/webpmux -info $src";
 		wfDebug( __METHOD__ . ": Running custom convert command $cmd\n" );
 		
@@ -175,18 +179,20 @@ class UespWebpHandler extends WebPHandler
 			$bi = $frame['blend'] == 'yes' ? '+b' : '-b';
 			
 			$createCmd .= " -frame '$tmpName' +$di+$xi+$yi+$mi$bi";
+			
+			if (!$this->ENABLE_ANIMATED_THUMBNAILS) break;
 		}
 		
 		$cmd = "$wgUespWebpBinPath/webpmux $createCmd -o $dst";
 		wfDebug( __METHOD__ . ": Running custom convert command $cmd\n" );
-			
+		
 		$retval = 0;
 		$output = wfShellExecWithStderr( $cmd, $retval );
 		
 		if ( $retval !== 0 ) {
 			$this->logErrorForExternalProcess( $retval, $output, $cmd );
 			return $this->getMediaTransformError( $params, $output );
-		}		
+		}
 		
 		return false;	# No error
 	}
