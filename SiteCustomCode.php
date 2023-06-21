@@ -439,7 +439,6 @@ function UESP_beforePageDisplay(&$out) {
 	
 	SetupUespFavIcons($out);
 	
-	SetUespMapSessionData();
 	SetupUespLongitudeAds($out);
 	SetupUespTwitchEmbed($out);
 	
@@ -480,6 +479,8 @@ function SetupUespTwitchEmbed(&$out) {
 
 function SetUespMapSessionData()
 {
+		//Note: This is no longer needed/used
+		
 	global $_SESSION, $wgUser;
 	
 		// TODO: Unsure when we have to migrate to the new session object (should have been 1.27/28)
