@@ -100,6 +100,7 @@ class SiteSearchFormWidget extends MediaWiki\Widget\Search\SearchFormWidget
 		</td><td>
 			<br>
 			<span style="white-space: nowrap"><input name="ns10" type="checkbox" value="1" $checked_data[10] id="mw-search-ns10" />&#160;<label for="mw-search-ns10">Template</label></span><br>
+			<span style="white-space: nowrap"><input name="ns828" type="checkbox" value="1" $checked_data[828] id="mw-search-ns828" />&#160;<label for="mw-search-ns828">Module</label></span><br>
 			<span style="white-space: nowrap"><input name="ns12" type="checkbox" value="1" $checked_data[12] id="mw-search-ns12" />&#160;<label for="mw-search-ns12">Help</label></span><br>
 			<span style="white-space: nowrap"><input name="ns14" type="checkbox" value="1" $checked_data[14] id="mw-search-ns14" />&#160;<label for="mw-search-ns14">Category</label></span><br>
 			<span style="white-space: nowrap"><input name="ns118" type="checkbox" value="1" $checked_data[118] id="mw-search-ns118" />&#160;<label for="mw-search-ns118">General</label></span><br>
