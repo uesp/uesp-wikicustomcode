@@ -117,6 +117,10 @@ class SiteSpecialSearch extends SpecialSearch
 			$this->searchConfig,
 			$this->getSearchProfiles()
 		);
+		
+			// To get around protected member
+		$formWidget->searchTalkPages = $this->searchTalkPages;
+		
 		$filePrefix = $wgContLang->getFormattedNsText( NS_FILE ) . ':';
 		if ( trim( $term ) === '' || $filePrefix === trim( $term ) ) {
 			// Empty query -- straight view of search form
