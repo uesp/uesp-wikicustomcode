@@ -187,6 +187,7 @@ $wgHooks['MobileMenu'][] = 'onUespMobileMenu';
 $wgHooks['OutputPageBeforeHTML'][] = 'uespMobileAddTopAdDiv';
 
 $wgHooks['BeforeInitialize'][] = 'onUespBeforeInitialize';
+$wgHooks['ParserPreSaveTransformComplete'][] = 'onPreSaveTransformCheckUploadWizard'; //Only works in 1.35+
 
 # Load messages
 
@@ -755,6 +756,51 @@ function uespMobileAddTopAdDiv( &$out, &$text )
 	
 	$hasAddedDiv = true;
 	return true;
+}
+
+
+function onPreSaveTransformCheckUploadWizard(Parser $parser, string &$text)
+{
+	error_log("onPreSaveTransformCheckUploadWizard");
+	
+	$result = preg_match( '/=={{int:filedesc}}==
+{{Information
+\|description=(.*)
+\|date=(.*)
+\|source=(.*)
+\|author=(.*)
+\|permission=(.*)
+\|other versions=(.*)
+}}
+
+=={{int:license-header}}==
+{{(.*)}}
+*(.*)/', $text, $matches );
+	if (!$result) return;
+	
+	$description = $matches[1];
+	
+	if (preg_match('/{{([a-zA-Z0-9_-])+\|1=(.*)}}/', $description, $descMatches))
+	{
+		$description = $descMatches[2];
+	}
+	
+	$date = $matches[2];
+	$source = $matches[3];
+	$author = $matches[4];
+	$permission = $matches[5];
+	$otherVersions = $matches[6];
+	$license = $matches[7];
+	$license = str_replace("self|", "", $license);
+	$extra = $matches[8];
+	
+	$text = "== Summary ==
+$description
+		
+== Licensing ==
+{{{$license}}}
+
+$extra";
 }
 
 

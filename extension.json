@@ -109,6 +109,9 @@
 		"ParserGetVariableValueSwitch": [
 			"SiteMiscFunctions::assignMagicWords"
 		],
+		"ParserPreSaveTransformComplete" : [
+			"onPreSaveTransformCheckUploadWizard"
+		],
 		"IsFileCacheable": [
 			"SiteMiscFunctions::isFileCacheable"
 		],
