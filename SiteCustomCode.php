@@ -761,8 +761,6 @@ function uespMobileAddTopAdDiv( &$out, &$text )
 
 function onPreSaveTransformCheckUploadWizard(Parser $parser, string &$text)
 {
-	error_log("onPreSaveTransformCheckUploadWizard");
-	
 	$result = preg_match( '/=={{int:filedesc}}==
 {{Information
 \|description=(.*)
