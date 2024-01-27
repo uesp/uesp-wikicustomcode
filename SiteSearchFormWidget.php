@@ -50,6 +50,7 @@ class SiteSearchFormWidget extends MediaWiki\Widget\Search\SearchFormWidget
 		</td><td>
 			<b>Skyrim</b><br>
 			<span style="white-space: nowrap"><input name="ns134" type="checkbox" value="1" $checked_data[134] id="mw-search-ns134" />&#160;<label for="mw-search-ns134">Skyrim</label></span><br>
+			<span style="white-space: nowrap"><input name="ns182" type="checkbox" value="1" $checked_data[182] id="mw-search-ns182" />&#160;<label for="mw-search-ns182">SkyrimTAG</label></span><br>
 			<span style="white-space: nowrap"><input name="ns166" type="checkbox" value="1" $checked_data[166] id="mw-search-ns166" />&#160;<label for="mw-search-ns166">VSE</label></span><br>
 			<span style="white-space: nowrap"><input name="ns142" type="checkbox" value="1" $checked_data[142] id="mw-search-ns142" />&#160;<label for="mw-search-ns142">Skyrim Mod</label></span><br>
 			<span style="white-space: nowrap"><input name="ns178" type="checkbox" value="1" $checked_data[178] id="mw-search-ns178" />&#160;<label for="mw-search-ns178">Beyond Skyrim</label></span>
@@ -87,6 +88,7 @@ class SiteSearchFormWidget extends MediaWiki\Widget\Search\SearchFormWidget
 			<b>Other TES</b><br>
 			<span style="white-space: nowrap"><input name="ns152" type="checkbox" value="1" $checked_data[152] id="mw-search-ns152" />&#160;<label for="mw-search-ns152">Blades</label></span><br>
 			<span style="white-space: nowrap"><input name="ns158" type="checkbox" value="1" $checked_data[158] id="mw-search-ns158" />&#160;<label for="mw-search-ns158">Call to Arms</label></span><br>
+			<span style="white-space: nowrap"><input name="ns184" type="checkbox" value="1" $checked_data[184] id="mw-search-ns184" />&#160;<label for="mw-search-ns184">Castles</label></span><br>
 			<span style="white-space: nowrap"><input name="ns150" type="checkbox" value="1" $checked_data[150] id="mw-search-ns150" />&#160;<label for="mw-search-ns150">Legends</label></span><br>
 			<span style="white-space: nowrap"><input name="ns164" type="checkbox" value="1" $checked_data[164] id="mw-search-ns164" />&#160;<label for="mw-search-ns164">Pinball</label></span><br>
 			<span style="white-space: nowrap"><input name="ns160" type="checkbox" value="1" $checked_data[160] id="mw-search-ns160" />&#160;<label for="mw-search-ns160">Other Mod</label></span>
