@@ -51,7 +51,7 @@ class SiteSearchFormWidget extends MediaWiki\Widget\Search\SearchFormWidget
 			<b>Skyrim</b><br>
 			<span style="white-space: nowrap"><input name="ns134" type="checkbox" value="1" $checked_data[134] id="mw-search-ns134" />&#160;<label for="mw-search-ns134">Skyrim</label></span><br>
 			<span style="white-space: nowrap"><input name="ns182" type="checkbox" value="1" $checked_data[182] id="mw-search-ns182" />&#160;<label for="mw-search-ns182">SkyrimTAG</label></span><br>
-			<span style="white-space: nowrap"><input name="ns166" type="checkbox" value="1" $checked_data[166] id="mw-search-ns166" />&#160;<label for="mw-search-ns166">VSE</label></span><br>
+			<span style="white-space: nowrap"><input name="ns166" type="checkbox" value="1" $checked_data[166] id="mw-search-ns166" />&#160;<label for="mw-search-ns166">SkyrimVSE</label></span><br>
 			<span style="white-space: nowrap"><input name="ns142" type="checkbox" value="1" $checked_data[142] id="mw-search-ns142" />&#160;<label for="mw-search-ns142">Skyrim Mod</label></span><br>
 			<span style="white-space: nowrap"><input name="ns178" type="checkbox" value="1" $checked_data[178] id="mw-search-ns178" />&#160;<label for="mw-search-ns178">Beyond Skyrim</label></span>
 		</td><td>
