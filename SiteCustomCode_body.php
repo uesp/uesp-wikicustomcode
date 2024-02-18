@@ -522,7 +522,7 @@ class SiteBreadCrumbTrail
 	protected function initialize($use_ns = true)
 	{
 		if ($use_ns)
-			$this->_trailtext = SiteNamespace::parser_get_value($this->_parser, 'ns_trail', $this->_frame, $this->_trailns);
+            $this->_trailtext = '{{NS_TRAIL:' . $this->_trailns . '}}';
 		else
 			$this->_trailtext = '';
 	}
@@ -533,7 +533,7 @@ class SiteBreadCrumbTrail
 			if (!$text)
 				continue;
 			if (strpos($text, '[[') === false)
-				$text = '[[:' . SiteNamespace::parser_get_value($this->_parser, 'ns_full', $this->_frame, $this->_trailns) . $text . '|' . $text . ']]';
+				$text = "[[:{{NS_FULL:{$this->_trailns}}}$text|$text]]";
 			if ($this->_trailtext != '')
 				$this->_trailtext .= $separator;
 			$this->_trailtext .= $text;
