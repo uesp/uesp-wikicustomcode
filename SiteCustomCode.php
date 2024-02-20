@@ -88,12 +88,7 @@ require_once('SiteSpecialPreferences.php');
 require_once('SiteSpecialWantedpages.php');
 require_once('SiteSpecialSearch.php');
 
-if ($wgSitename == 'UESPWiki')
-	$egCustomSiteID = 'Uesp';
-elseif ($wgSitename == 'ESPOWiki')
-	$egCustomSiteID = 'Espo';
-else
-	$egCustomSiteID = 'Site';
+$egCustomSiteID = 'Uesp';
 
 $wgExtensionCredits['other'][] = array(
 	'name' => $egCustomSiteID . 'CustomCode',
@@ -107,15 +102,6 @@ $wgExtensionCredits['other'][] = array(
  * Extension definitions
  */
 # definitions for magic words and parser functions
-define('MAG_SITE_NS_BASE', 'NS_BASE');
-define('MAG_SITE_NS_NAME', 'NS_NAME');
-define('MAG_SITE_NS_FULL', 'NS_FULL');
-define('MAG_SITE_NS_PARENT', 'NS_PARENT');
-define('MAG_SITE_NS_MAINPAGE', 'NS_MAINPAGE');
-define('MAG_SITE_NS_CATEGORY', 'NS_CATEGORY');
-define('MAG_SITE_NS_TRAIL', 'NS_TRAIL');
-define('MAG_SITE_NS_ID', 'NS_ID');
-define('MAG_SITE_MOD_NAME', 'MOD_NAME');
 define('MAG_SITE_CORENAME', 'CORENAME');
 define('MAG_SITE_SORTABLECORENAME', 'SORTABLECORENAME');
 define('MAG_SITE_LABELNAME', 'LABELNAME');
@@ -125,18 +111,6 @@ define('MAG_SITE_INITTRAIL', 'inittrail');
 define('MAG_SITE_SETTRAIL', 'settrail');
 define('MAG_SITE_ADDTOTRAIL', 'addtotrail');
 # (0 means case-insensitive, 1 means case-sensitive)
-$egSiteNamespaceMagicWords =
-	array(
-		MAG_SITE_NS_BASE => 1,
-		MAG_SITE_NS_NAME => 1,
-		MAG_SITE_NS_FULL => 1,
-		MAG_SITE_NS_PARENT => 1,
-		MAG_SITE_NS_MAINPAGE => 1,
-		MAG_SITE_NS_CATEGORY => 1,
-		MAG_SITE_NS_TRAIL => 1,
-		MAG_SITE_NS_ID => 1,
-		MAG_SITE_MOD_NAME => 1
-	);
 $egSiteOtherMagicWords =
 	array(
 		MAG_SITE_CORENAME => 0,
@@ -159,7 +133,6 @@ $wgExtensionFunctions[] = 'efSiteCustomCode';
 $dir = dirname(__FILE__) . '/';
 
 # Tell Mediawiki where to find files containing extension-specific classes
-$wgAutoloadClasses['SiteNamespace'] = $dir . 'SiteNamespace.php';
 # $wgAutoloadClasses['SiteSearchMySQL'] = $dir . 'SiteSearchMySQL.php';
 $wgAutoloadClasses['SiteMonobook'] = $dir . 'SiteMonobook.php';
 $wgAutoloadClasses['SiteMiscFunctions'] = $dir . 'SiteCustomCode_body.php';
@@ -327,17 +300,6 @@ function efSiteCustomCode()
 	$wgParser->setFunctionHook(MAG_SITE_SETTRAIL, array('SiteBreadCrumbTrail', 'implementSetTrail'), $hookoption);
 	$wgParser->setFunctionHook(MAG_SITE_ADDTOTRAIL, array('SiteBreadCrumbTrail', 'implementAddToTrail'), $hookoption);
 
-	// parser function versions of Namespace variables (e.g., {{NS_FULL:SI}}, instead of just {{NS_FULL}})
-	$wgParser->setFunctionHook(MAG_SITE_NS_BASE, array('SiteNamespace', 'parser_get_ns_base'), SFH_NO_HASH | $hookoption);
-	$wgParser->setFunctionHook(MAG_SITE_NS_FULL, array('SiteNamespace', 'parser_get_ns_full'), SFH_NO_HASH | $hookoption);
-	$wgParser->setFunctionHook(MAG_SITE_MOD_NAME, array('SiteNamespace', 'parser_get_mod_name'), SFH_NO_HASH | $hookoption);
-	$wgParser->setFunctionHook(MAG_SITE_NS_ID, array('SiteNamespace', 'parser_get_ns_id'), SFH_NO_HASH | $hookoption);
-	$wgParser->setFunctionHook(MAG_SITE_NS_PARENT, array('SiteNamespace', 'parser_get_ns_parent'), SFH_NO_HASH | $hookoption);
-	$wgParser->setFunctionHook(MAG_SITE_NS_NAME, array('SiteNamespace', 'parser_get_ns_name'), SFH_NO_HASH | $hookoption);
-	$wgParser->setFunctionHook(MAG_SITE_NS_MAINPAGE, array('SiteNamespace', 'parser_get_ns_mainpage'), SFH_NO_HASH | $hookoption);
-	$wgParser->setFunctionHook(MAG_SITE_NS_CATEGORY, array('SiteNamespace', 'parser_get_ns_category'), SFH_NO_HASH | $hookoption);
-	$wgParser->setFunctionHook(MAG_SITE_NS_TRAIL, array('SiteNamespace', 'parser_get_ns_trail'), SFH_NO_HASH | $hookoption);
-
 	$prefix = strtolower($egCustomSiteID);
 	# Default values for custom user preferences
 	$wgDefaultUserOptions[$prefix . 'searchtitles'] = 1;   // UESP
@@ -414,6 +376,7 @@ function UESP_isShowAds()
 	static $cachedUser = null;
 
 	if (!$wgUser->isLoggedIn()) return true;
+	if (!class_exists('UespPatreonCommon', false)) return true; // Don't crash if UespPatreon not installed.
 
 	if ($cachedUser == null) {
 		$db = wfGetDB(DB_SLAVE);
@@ -436,8 +399,6 @@ function UESP_isShowAds()
 
 function UESP_beforePageDisplay(&$out)
 {
-	global $wgScriptPath;
-
 	SetupUespFavIcons($out);
 
 	SetupUespLongitudeAds($out);
@@ -461,8 +422,6 @@ function SetupUespFavIcons(&$out)
 
 function SetupUespLongitudeAds(&$out)
 {
-	global $uespIsApp;
-
 	if (UESP_isShowAds()) {
 		$out->addInlineScript("var uesptopad = document.getElementById('topad'); if (uesptopad) uesptopad.style = 'height:90px;'; ");
 		$out->addScriptFile('https://lngtd.com/uesp.js');

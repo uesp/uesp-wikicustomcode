@@ -28,8 +28,8 @@ class SiteMiscFunctions
 	// To disable all magic words, disable the hook that calls this function
 	public static function declareMagicWords(&$aCustomVariableIds)
 	{
-		global $egSiteNamespaceMagicWords, $egSiteOtherMagicWords;
-		foreach (array_merge($egSiteNamespaceMagicWords, $egSiteOtherMagicWords) as $magicword => $case) {
+		global $egSiteOtherMagicWords;
+		foreach ($egSiteOtherMagicWords as $magicword => $case) {
 			$aCustomVariableIds[] = $magicword;
 		}
 		return true;
@@ -39,10 +39,7 @@ class SiteMiscFunctions
 	// requires commenting out more than one line)
 	public static function assignMagicWords(&$parser, &$cache, &$magicWordId, &$ret, &$frame = NULL)
 	{
-		global $egSiteNamespaceMagicWords;
-		if (array_key_exists($magicWordId, $egSiteNamespaceMagicWords)) {
-			$ret = SiteNamespace::find_nsobj($parser, $frame)->get(strtolower($magicWordId));
-		} elseif ($magicWordId == MAG_SITE_CORENAME) {
+		if ($magicWordId == MAG_SITE_CORENAME) {
 			$ret = self::implementCorename($parser);
 		} elseif ($magicWordId == MAG_SITE_LABELNAME) {
 			$ret = self::implementLabelname($parser);
@@ -323,16 +320,23 @@ class SiteMiscFunctions
 	}
 */
 
+	/**
+	 * Overrides default sort key using site's custom namespace logic.
+	 *
+	 * @param Title $title
+	 * @param string $sortkey
+	 *
+	 */
 	public static function onGetDefaultSortkey($title, &$sortkey)
 	{
-		// TODO: In theory, if the namespace supports subpages, this should break the entire title into sections and
-		// run doSortable on each one individually, but that's an edge-case...is it worth the extra processing?
-		$nsUesp = new SiteNamespace(null, null, $title);
-		$nsFull = $nsUesp->get_ns_full();
-
-		// This should be safe, since nsUesp should always return a namespace of at least this length.
-		$name = substr($title->getPrefixedText(), strlen($nsFull));
-		$sortkey = self::doSortable($name);
+		if (class_exists('NSInfo')) {
+			// TODO: In theory, if the namespace supports subpages, this should break the entire title into sections and
+			// run doSortable on each one individually, but that's an edge-case...is it worth the extra processing?
+			$nsUesp = NSInfo::nsFromTitle($title);
+			$nsFull = $nsUesp->getFull();
+			$name = substr($title->getPrefixedText(), strlen($nsFull));
+			$sortkey = self::doSortable($name);
+		}
 	}
 
 	public static function markPatrolled($rcid, $user, $wcOnlySysopsCanPatrol)
@@ -511,11 +515,13 @@ class SiteBreadCrumbTrail
 		$separator = preg_replace('/:/', '&#058;', $separator);
 		// make it possible to add vertical pipes -- which otherwise would get misread by the parsing
 		$separator = preg_replace('/\!/', '|', $separator);
-		if (strlen($separator) > 1 && $separator{
-			0} == substr($separator, -1, 1) && ($separator{
-			0} == '\'' || $separator{
-			0} == '"'))
+		if (
+			strlen($separator) > 1 &&
+			$separator[0] == substr($separator, -1, 1) &&
+			($separator[0] == '\'' || $separator[0] == '"')
+		) {
 			$separator = substr($separator, 1, -1);
+		}
 		return $output;
 	}
 

@@ -38,7 +38,6 @@
 		"sitecustomcodeMagic": "SiteCustomCode.i18n.magic.php"
 	},
 	"AutoloadClasses": {
-		"SiteNamespace": "SiteNamespace.php",
 		"SiteMonobook": "SiteMonobook.php",
 		"SiteMiscFunctions": "SiteCustomCode_body.php",
 		"SiteBreadCrumbTrail": "SiteCustomCode_body.php",
@@ -109,7 +108,7 @@
 		"ParserGetVariableValueSwitch": [
 			"SiteMiscFunctions::assignMagicWords"
 		],
-		"ParserPreSaveTransformComplete" : [
+		"ParserPreSaveTransformComplete": [
 			"onPreSaveTransformCheckUploadWizard"
 		],
 		"IsFileCacheable": [
