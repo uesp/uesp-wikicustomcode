@@ -522,7 +522,7 @@ class SiteBreadCrumbTrail
 	protected function initialize($use_ns = true)
 	{
 		if ($use_ns)
-            $this->_trailtext = '{{NS_TRAIL:' . $this->_trailns . '}}';
+			$this->_trailtext = '{{NS_TRAIL:' . $this->_trailns . '}}';
 		else
 			$this->_trailtext = '';
 	}

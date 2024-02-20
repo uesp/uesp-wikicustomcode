@@ -126,25 +126,31 @@ define('MAG_SITE_SETTRAIL', 'settrail');
 define('MAG_SITE_ADDTOTRAIL', 'addtotrail');
 # (0 means case-insensitive, 1 means case-sensitive)
 $egSiteNamespaceMagicWords =
-	array(MAG_SITE_NS_BASE => 1,
-	      MAG_SITE_NS_NAME => 1,
-	      MAG_SITE_NS_FULL => 1,
-	      MAG_SITE_NS_PARENT => 1,
-	      MAG_SITE_NS_MAINPAGE => 1,
-	      MAG_SITE_NS_CATEGORY => 1,
-	      MAG_SITE_NS_TRAIL => 1,
-	      MAG_SITE_NS_ID => 1,
-	      MAG_SITE_MOD_NAME => 1);
+	array(
+		MAG_SITE_NS_BASE => 1,
+		MAG_SITE_NS_NAME => 1,
+		MAG_SITE_NS_FULL => 1,
+		MAG_SITE_NS_PARENT => 1,
+		MAG_SITE_NS_MAINPAGE => 1,
+		MAG_SITE_NS_CATEGORY => 1,
+		MAG_SITE_NS_TRAIL => 1,
+		MAG_SITE_NS_ID => 1,
+		MAG_SITE_MOD_NAME => 1
+	);
 $egSiteOtherMagicWords =
-	array(MAG_SITE_CORENAME => 0,
-	      MAG_SITE_SORTABLECORENAME => 0,
-	      MAG_SITE_LABELNAME => 0);
+	array(
+		MAG_SITE_CORENAME => 0,
+		MAG_SITE_SORTABLECORENAME => 0,
+		MAG_SITE_LABELNAME => 0
+	);
 $egSiteParserFunctions =
-	array(MAG_SITE_SORTABLE => 0,
-	      MAG_SITE_LABEL => 0,
-	      MAG_SITE_INITTRAIL => 0,
-	      MAG_SITE_SETTRAIL => 0,
-	      MAG_SITE_ADDTOTRAIL => 0);
+	array(
+		MAG_SITE_SORTABLE => 0,
+		MAG_SITE_LABEL => 0,
+		MAG_SITE_INITTRAIL => 0,
+		MAG_SITE_SETTRAIL => 0,
+		MAG_SITE_ADDTOTRAIL => 0
+	);
 
 # ParserFirstCallInit does not work correctly in all versions of MediaWiki
 # Function is called too late so use below line all the time.
@@ -180,7 +186,7 @@ $wgHooks['TitleSquidURLs'][] = 'onUespTitleSquidURLs';
 
 $wgHooks['UserMailerTransformMessage'][] = 'onUespUserMailerTransformMessage';
 
-	/* Mobile Specific */
+/* Mobile Specific */
 $wgHooks['MinervaDiscoveryTools'][] = 'onUespMinervaDiscoveryTools';
 $wgHooks['MobilePersonalTools'][] = 'onUespMobilePersonalTools';
 $wgHooks['MobileMenu'][] = 'onUespMobileMenu';
@@ -260,35 +266,35 @@ $egSiteEnableGoogleAds = true;  // UESP
 
 $wgResourceModules['ext.UespCustomCode.ad'] = array(
 	'position' => 'top',
-	'scripts' => array( 'modules/uespCurse.js' ),
-	'styles' => array( 'modules/uespCurse.css' ),
+	'scripts' => array('modules/uespCurse.js'),
+	'styles' => array('modules/uespCurse.css'),
 	'localBasePath' => __DIR__,
 	'remoteBasePath' => "$wgScriptPath/extensions/UespCustomCode/",
-	'targets' => array( 'desktop', 'mobile' ),
+	'targets' => array('desktop', 'mobile'),
 );
 
 $wgResourceModules['ext.UespCustomCode.app.styles'] = array(
 	'position' => 'top',
-	'styles' => array( 'modules/uespApp.css' ),
+	'styles' => array('modules/uespApp.css'),
 	'localBasePath' => __DIR__,
 	'remoteBasePath' => "$wgScriptPath/extensions/UespCustomCode/",
-	'targets' => array( 'mobile' ),
+	'targets' => array('mobile'),
 );
 
 $wgResourceModules['ext.UespCustomCode.app.scripts'] = array(
 	'position' => 'top',
-	'scripts' => array( 'modules/uespApp.js' ),
+	'scripts' => array('modules/uespApp.js'),
 	'localBasePath' => __DIR__,
 	'remoteBasePath' => "$wgScriptPath/extensions/UespCustomCode/",
-	'targets' => array( 'mobile' ),
+	'targets' => array('mobile'),
 );
 
 $wgResourceModules['ext.UespCustomCode.analytics'] = array(
 	'position' => 'top',
-	'scripts' => array( 'modules/uespGoogleAnalytics.js' ),
+	'scripts' => array('modules/uespGoogleAnalytics.js'),
 	'localBasePath' => __DIR__,
 	'remoteBasePath' => "$wgScriptPath/extensions/UespCustomCode/",
-	'targets' => array( 'desktop', 'mobile' ),
+	'targets' => array('desktop', 'mobile'),
 );
 
 /*
@@ -297,7 +303,8 @@ $wgResourceModules['ext.UespCustomCode.analytics'] = array(
 # This function is called as soon as setup is done
 # Loads extension messages and does some other initialization that can be safely moved out of global
 
-function efSiteCustomCode() {
+function efSiteCustomCode()
+{
 	global $wgParser, $wgContLang, $wgDefaultUserOptions, $egCustomSiteID, $uespIsMobile, $wgOut, $uespIsApp;
 
 	// Change search type so that new search class is loaded
@@ -320,7 +327,7 @@ function efSiteCustomCode() {
 	$wgParser->setFunctionHook(MAG_SITE_SETTRAIL, array('SiteBreadCrumbTrail', 'implementSetTrail'), $hookoption);
 	$wgParser->setFunctionHook(MAG_SITE_ADDTOTRAIL, array('SiteBreadCrumbTrail', 'implementAddToTrail'), $hookoption);
 
-// parser function versions of Namespace variables (e.g., {{NS_FULL:SI}}, instead of just {{NS_FULL}})
+	// parser function versions of Namespace variables (e.g., {{NS_FULL:SI}}, instead of just {{NS_FULL}})
 	$wgParser->setFunctionHook(MAG_SITE_NS_BASE, array('SiteNamespace', 'parser_get_ns_base'), SFH_NO_HASH | $hookoption);
 	$wgParser->setFunctionHook(MAG_SITE_NS_FULL, array('SiteNamespace', 'parser_get_ns_full'), SFH_NO_HASH | $hookoption);
 	$wgParser->setFunctionHook(MAG_SITE_MOD_NAME, array('SiteNamespace', 'parser_get_mod_name'), SFH_NO_HASH | $hookoption);
@@ -334,7 +341,7 @@ function efSiteCustomCode() {
 	$prefix = strtolower($egCustomSiteID);
 	# Default values for custom user preferences
 	$wgDefaultUserOptions[$prefix . 'searchtitles'] = 1;   // UESP
-#$wgDefaultUserOptions[$prefix.'searchtitles'] = 0;  // ESPO
+	#$wgDefaultUserOptions[$prefix.'searchtitles'] = 0;  // ESPO
 	$wgDefaultUserOptions[$prefix . 'searchredirects'] = 1;
 	$wgDefaultUserOptions[$prefix . 'searchtalk'] = 1;
 
@@ -358,18 +365,16 @@ function efSiteCustomCode() {
 		$wgDefaultUserOptions['rcNs' . $ns] = 1;
 	}
 	$wgDefaultUserOptions['rcNsTalk'] = 1;
-	
-	if (class_exists("MobileContext"))
-	{
-		if (MobileContext::singleton()->isMobileDevice()) 
-		{
+
+	if (class_exists("MobileContext")) {
+		if (MobileContext::singleton()->isMobileDevice()) {
 			$uespIsMobile = true;
-			
-				// These hooks are here so as they are called after the same hook in MobileFrontEnd
+
+			// These hooks are here so as they are called after the same hook in MobileFrontEnd
 			setupUespMobileHooks();
 		}
 	}
-	
+
 	return true;
 }
 
@@ -377,77 +382,73 @@ function efSiteCustomCode() {
 function setupUespMobileHooks()
 {
 	global $wgHooks;
-	
+
 	$wgHooks['SpecialPage_initList'][] = 'efSiteMobilePrefsSpecialPageInit';
 	$wgHooks['RequestContextCreateSkinMobile'][] = 'efSiteRequestContextCreateSkinMobile';
 }
 
 
-function onUespBeforeInitialize() 
+function onUespBeforeInitialize()
 {
 	global $wgOut;
 	global $uespIsApp;
-	
-	if ($uespIsApp)
-	{
-		$wgOut->addModules( 'ext.UespCustomCode.app.scripts' );
-		$wgOut->addModuleStyles( 'ext.UespCustomCode.app.styles' );
-	}
-	else
-	{
-		if (UESP_isShowAds()) 
-		{
-			$wgOut->addModules( 'ext.UespCustomCode.analytics' );
-			
-				// Old Curse Ads
+
+	if ($uespIsApp) {
+		$wgOut->addModules('ext.UespCustomCode.app.scripts');
+		$wgOut->addModuleStyles('ext.UespCustomCode.app.styles');
+	} else {
+		if (UESP_isShowAds()) {
+			$wgOut->addModules('ext.UespCustomCode.analytics');
+
+			// Old Curse Ads
 			//$wgOut->addModules( 'ext.UespCustomCode.ad' );
-		}
-		else 
-		{
+		} else {
 		}
 	}
-	
 }
 
 
-function UESP_isShowAds() {
+function UESP_isShowAds()
+{
 	global $wgUser;
 	static $cachedUser = null;
-		
+
 	if (!$wgUser->isLoggedIn()) return true;
-	
+
 	if ($cachedUser == null) {
 		$db = wfGetDB(DB_SLAVE);
-	
+
 		$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()]);
 		if ($res->numRows() == 0) return true;
-		
+
 		$row = $res->fetchRow();
 		if ($row == null) return true;
-		
+
 		$cachedUser = $row;
 	}
-	
+
 	$hasPaid = ($cachedUser['lifetimePledgeCents'] > 0);
 	//error_log("Has Donated: " . $hasPaid);
-	
+
 	return !$hasPaid;
 }
 
 
-function UESP_beforePageDisplay(&$out) {
+function UESP_beforePageDisplay(&$out)
+{
 	global $wgScriptPath;
-	
+
 	SetupUespFavIcons($out);
-	
+
 	SetupUespLongitudeAds($out);
 	SetupUespTwitchEmbed($out);
-	
+
 	return true;
 }
 
 
-function SetupUespFavIcons(&$out) {
+function SetupUespFavIcons(&$out)
+{
 	$out->addLink(array('rel' => 'icon', 'type' => 'image/png', 'href' => 'https://images.uesp.net/favicon-16.png',  'sizes' => '16x16'));
 	$out->addLink(array('rel' => 'icon', 'type' => 'image/png', 'href' => 'https://images.uesp.net/favicon-32.png',  'sizes' => '32x32'));
 	$out->addLink(array('rel' => 'icon', 'type' => 'image/png', 'href' => 'https://images.uesp.net/favicon-48.png',  'sizes' => '48x48'));
@@ -458,80 +459,79 @@ function SetupUespFavIcons(&$out) {
 }
 
 
-function SetupUespLongitudeAds(&$out) {
+function SetupUespLongitudeAds(&$out)
+{
 	global $uespIsApp;
-	
+
 	if (UESP_isShowAds()) {
 		$out->addInlineScript("var uesptopad = document.getElementById('topad'); if (uesptopad) uesptopad.style = 'height:90px;'; ");
 		$out->addScriptFile('https://lngtd.com/uesp.js');
-	}
-	else {
+	} else {
 		$out->addInlineScript("var uesptopad = document.getElementById('topad'); if (uesptopad) uesptopad.style = 'display:none;'; ");
 	}
 }
 
 
-function SetupUespTwitchEmbed(&$out) {
-	
+function SetupUespTwitchEmbed(&$out)
+{
+
 	$out->addScriptFile('https://player.twitch.tv/js/embed/v1.js');
-	
 }
 
 
 function SetUespMapSessionData()
 {
-		//Note: This is no longer needed/used
-		
+	//Note: This is no longer needed/used
+
 	global $_SESSION, $wgUser;
-	
-		// TODO: Unsure when we have to migrate to the new session object (should have been 1.27/28)
+
+	// TODO: Unsure when we have to migrate to the new session object (should have been 1.27/28)
 	//$session = \MediaWiki\Session\SessionManager::getGlobalSession();
-	
+
 	$_SESSION['UESP_AllMap_canEdit'] = 0;
 	$_SESSION['UESP_EsoMap_canEdit'] = 0;
 	$_SESSION['UESP_TRMap_canEdit'] = 0;
 	$_SESSION['UESP_OtherMap_canEdit'] = 0;
-	
+
 	//$session->set('UESP_AllMap_canEdit', 0);
 	//$session->set('UESP_EsoMap_canEdit', 0);
 	//$session->set('UESP_TRMap_canEdit', 0);
 	//$session->set('UESP_OtherMap_canEdit', 0);
-	
+
 	if ($wgUser == null) return;
-	
-	if ($wgUser->isAllowed( 'esomapedit' ))
-	{
+
+	if ($wgUser->isAllowed('esomapedit')) {
 		$_SESSION['UESP_EsoMap_canEdit'] = 1;
 		//$session->set('UESP_EsoMap_canEdit', 1);
 	}
-	
-	if ($wgUser->isAllowed( 'mapedit' ) || $wgUser->isAllowed( 'othermapedit' ))
-	{
+
+	if ($wgUser->isAllowed('mapedit') || $wgUser->isAllowed('othermapedit')) {
 		$_SESSION['UESP_OtherMap_canEdit'] = 1;
 		//$session->set('UESP_OtherMap_canEdit', 1);
 	}
-	
-	if ($wgUser->isAllowed( 'trmapedit' ))
-	{
+
+	if ($wgUser->isAllowed('trmapedit')) {
 		$_SESSION['UESP_TRMap_canEdit'] = 1;
 		//$session->set('UESP_TRMap_canEdit', 1);
 	}
 }
 
 
-function efSiteMobilePrefsSpecialPageInit(&$aSpecialPages) {
+function efSiteMobilePrefsSpecialPageInit(&$aSpecialPages)
+{
 	$aSpecialPages['Preferences'] = 'SiteSpecialMobilePreferences';
 }
 
 
-function efSiteRequestContextCreateSkinMobile(MobileContext $mobileContext, Skin $skin) {
-	
-	if ( $skin instanceof SkinMinerva ) {
-		
-			// Turn off the use of the Special:MobileOptions page for preferences
-		$skin->setSkinOptions( [
-				SkinMinerva::OPTION_MOBILE_OPTIONS => false,
-			] );
+function efSiteRequestContextCreateSkinMobile(MobileContext $mobileContext, Skin $skin)
+{
+
+	if ($skin instanceof SkinMinerva) {
+
+		// Turn off the use of the Special:MobileOptions page for preferences
+		$skin->setSkinOptions([
+			SkinMinerva::OPTION_MOBILE_OPTIONS => false,
+		]);
 	}
 }
 
@@ -542,80 +542,83 @@ function efSiteRequestContextCreateSkinMobile(MobileContext $mobileContext, Skin
  *   remove some that are pointless on site
  *   override some standard special pages with tweaked versions
  */
-function efSiteSpecialPageInit(&$aSpecialPages) {
-	
+function efSiteSpecialPageInit(&$aSpecialPages)
+{
+
 	$dir = dirname(__FILE__) . '/';
-// remove unnecessary pages
+	// remove unnecessary pages
 	unset($aSpecialPages['Booksources']);
 	unset($aSpecialPages['Withoutinterwiki']);
 	unset($aSpecialPages['Mostinterwikis']);
 
-// Override pages with customized versions
-// Commmenting out individual lines will disable the customizations to that special page
-// Note, however, that disabling Special:Search will probably also require a change in Wiki.php
-//   (and disabling the special page will only disable some, not all, of the customizations to the search engine)
+	// Override pages with customized versions
+	// Commmenting out individual lines will disable the customizations to that special page
+	// Note, however, that disabling Special:Search will probably also require a change in Wiki.php
+	//   (and disabling the special page will only disable some, not all, of the customizations to the search engine)
 	// array values are genericclass for page, followed by the constructor arguments for that class
 	// pagetype(class)=SpecialPage, $name = '', $restriction = '', $listed = true, $function = false, $file = 'default', $includable = false
 	// pagetype(class)=IncludableSpecialPage, $name, $restriction = '', $listed = true, $function = false, $file = 'default'
 	// all of these cases the page object itself is a SpecialPage; the customization is done via a customized Form class
-	
-#	$aSpecialPages['Lonelypages'] = array( 'SpecialPage', 'Lonelypages', '', true, 'efSiteSpecialLonelypages', $dir . 'SiteSpecialLonelypages.php');
+
+	#	$aSpecialPages['Lonelypages'] = array( 'SpecialPage', 'Lonelypages', '', true, 'efSiteSpecialLonelypages', $dir . 'SiteSpecialLonelypages.php');
 
 	// $aSpecialPages['Search'] = array('SpecialPage', 'Search', '', true, 'efSiteSpecialSearch', $dir . 'SiteSpecialSearch.php');
 	$aSpecialPages['Search'] = 'SiteSpecialSearch';
 	$aSpecialPages['Preferences'] = 'SitePreferencesForm';
-	$aSpecialPages['Wantedpages'] = 'SiteWantedPagesPage';	
-	
+	$aSpecialPages['Wantedpages'] = 'SiteWantedPagesPage';
+
 	// recentchanges is different because it has its own class derived from SpecialPage
 	$aSpecialPages['Recentchanges'] = 'SiteSpecialRecentChanges';
-	
+
 	$aSpecialPages['Randompage'] = 'SiteSpecialRandompage';
 
 	return true;
 }
 
-function onSearchGetNearMatchBefore( $allSearchTerms, &$title ) {
-	$title = Title::newFromText( $allSearchTerms[0] ); // Look for exact match before trying alternates
-	if ( $title->exists() ) {
+function onSearchGetNearMatchBefore($allSearchTerms, &$title)
+{
+	$title = Title::newFromText($allSearchTerms[0]); // Look for exact match before trying alternates
+	if ($title->exists()) {
 		return false; // false = match
 	}
-	
-	$title = Title::newFromText( preg_replace('/\beso\b/i', 'Online', $allSearchTerms[0]) );
-	if ( $title->exists() ) {
+
+	$title = Title::newFromText(preg_replace('/\beso\b/i', 'Online', $allSearchTerms[0]));
+	if ($title->exists()) {
 		return false; // false = match
 	}
-	
-	$title = Title::newFromText( preg_replace('/\beso\b/i', 'online', $allSearchTerms[0]) );
+
+	$title = Title::newFromText(preg_replace('/\beso\b/i', 'online', $allSearchTerms[0]));
 
 	return !$title->exists();
 }
 
 
-function onSpecialSearchCreateLink( $t, &$params ) {
+function onSpecialSearchCreateLink($t, &$params)
+{
 	$params[1] = preg_replace('/\((ESO) OR online\)/i', '$1', $params[1]);
-	
+
 	return true;
 }
 
 
-function onUespUserMailerTransformMessage(array $to, MailAddress $from, &$subject, &$headers, &$body, &$error ) 
+function onUespUserMailerTransformMessage(array $to, MailAddress $from, &$subject, &$headers, &$body, &$error)
 {
-	
-		// Fix issue with body hash changing which breaks DKIM verification
-		// Original 8bit encoding is changed to quoted-printable at some point in the mail chain.
+
+	// Fix issue with body hash changing which breaks DKIM verification
+	// Original 8bit encoding is changed to quoted-printable at some point in the mail chain.
 	$headers['Content-transfer-encoding'] = 'quoted-printable';
-	
+
 	$body = quoted_printable_encode($body);
-	
+
 	return true;
 }
 
 
 # Make sure all possible variants of an article is purged since it can be served from different URLs.
-function onUespTitleSquidURLs( Title $title, array &$urls )
+function onUespTitleSquidURLs(Title $title, array &$urls)
 {
 	$internalUrl = preg_replace('/(http(?:s)?:\/\/)([a-z_\-\.0-9A-Z]+)(\.uesp\.net\/.*)/i', '$1XXZZYY$3', $title->getInternalURL());
-	
+
 	$newUrl1 = str_replace("XXZZYY", "en", $internalUrl);
 	$newUrl2 = str_replace("XXZZYY", "en.m", $internalUrl);
 	$newUrl3 = str_replace("XXZZYY", "app", $internalUrl);
@@ -625,9 +628,9 @@ function onUespTitleSquidURLs( Title $title, array &$urls )
 	$newUrl7 = str_replace("XXZZYY", "it.m", $internalUrl);
 	$newUrl6 = str_replace("XXZZYY", "ar", $internalUrl);
 	$newUrl7 = str_replace("XXZZYY", "ar.m", $internalUrl);
-	
+
 	//error_log("onUespTitleSquidURLs: $internalUrl, $newUrl1, $newUrl2, $newUrl3");
-	
+
 	$urls[] = $newUrl1;
 	$urls[] = $newUrl2;
 	$urls[] = $newUrl3;
@@ -638,122 +641,121 @@ function onUespTitleSquidURLs( Title $title, array &$urls )
 }
 
 
-function onUespMobileMenu($menuType, &$menu) 
+function onUespMobileMenu($menuType, &$menu)
 {
 	$items = array();
-	
+
 	if ($menuType == "personal") onUespMobilePersonalTools($items);
 	if ($menuType == "discovery") onUespMinervaDiscoveryTools($items);
-	
-	foreach ($items as $item)
-	{
+
+	foreach ($items as $item) {
 		$comp = $item['components'][0];
-		
-		$menu->insert( $item['name'])
-				->addComponent(
-					$comp['text'],
-					$comp['href'],
-					$comp['class'],
-					array($comp['data-event-name'])
-				);
+
+		$menu->insert($item['name'])
+			->addComponent(
+				$comp['text'],
+				$comp['href'],
+				$comp['class'],
+				array($comp['data-event-name'])
+			);
 	}
 }
 
 
-function onUespMinervaDiscoveryTools (&$items)
+function onUespMinervaDiscoveryTools(&$items)
 {
 	global $wgServer;
-	
+
 	$items[] = array(
-			'name' => 'elderscrollsonline',
-			'components' => array(
-				array(
-					'text' => 'ES Online',
-					'href' => "$wgServer/wiki/Online:Online",
-					'class' => MobileUI::iconClass( 'elderscrollsonline', 'before', 'menu-item-elderscrollsonline' ),
-					'data-event-name' => 'elderscrollsonline',
-				),
+		'name' => 'elderscrollsonline',
+		'components' => array(
+			array(
+				'text' => 'ES Online',
+				'href' => "$wgServer/wiki/Online:Online",
+				'class' => MobileUI::iconClass('elderscrollsonline', 'before', 'menu-item-elderscrollsonline'),
+				'data-event-name' => 'elderscrollsonline',
 			),
-		);
-	
+		),
+	);
+
 	$items[] = array(
-			'name' => 'skyrim',
-			'components' => array(
-				array(
-					'text' => 'Skyrim',
-					'href' => "$wgServer/wiki/Skyrim:Skyrim",
-					'class' => MobileUI::iconClass( 'skyrim', 'before', 'menu-item-skyrim' ),
-					'data-event-name' => 'skyrim',
-				),
+		'name' => 'skyrim',
+		'components' => array(
+			array(
+				'text' => 'Skyrim',
+				'href' => "$wgServer/wiki/Skyrim:Skyrim",
+				'class' => MobileUI::iconClass('skyrim', 'before', 'menu-item-skyrim'),
+				'data-event-name' => 'skyrim',
 			),
-		);
-	
+		),
+	);
+
 	$items[] = array(
-			'name' => 'oblivion',
-			'components' => array(
-				array(
-					'text' => 'Oblivion',
-					'href' => "$wgServer/wiki/Oblivion:Oblivion",
-					'class' => MobileUI::iconClass( 'oblivion', 'before', 'menu-item-oblivion' ),
-					'data-event-name' => 'oblivion',
-				),
+		'name' => 'oblivion',
+		'components' => array(
+			array(
+				'text' => 'Oblivion',
+				'href' => "$wgServer/wiki/Oblivion:Oblivion",
+				'class' => MobileUI::iconClass('oblivion', 'before', 'menu-item-oblivion'),
+				'data-event-name' => 'oblivion',
 			),
-		);
-	
+		),
+	);
+
 	$items[] = array(
-			'name' => 'morrowind',
-			'components' => array(
-				array(
-					'text' => 'Morrowind',
-					'href' => "$wgServer/wiki/Morrowind:Morrowind",
-					'class' => MobileUI::iconClass( 'morrowind', 'before', 'menu-item-morrowind' ),
-					'data-event-name' => 'morrowind',
-				),
+		'name' => 'morrowind',
+		'components' => array(
+			array(
+				'text' => 'Morrowind',
+				'href' => "$wgServer/wiki/Morrowind:Morrowind",
+				'class' => MobileUI::iconClass('morrowind', 'before', 'menu-item-morrowind'),
+				'data-event-name' => 'morrowind',
 			),
-		);
-	
+		),
+	);
+
 	$items[] = array(
-			'name' => 'othercontent',
-			'components' => array(
-				array(
-					'text' => 'Other ES Games',
-					'href' => "$wgServer/wiki/All_Content",
-					'class' => MobileUI::iconClass( 'othercontent', 'before', 'menu-item-othercontent' ),
-					'data-event-name' => 'othercontent',
-				),
+		'name' => 'othercontent',
+		'components' => array(
+			array(
+				'text' => 'Other ES Games',
+				'href' => "$wgServer/wiki/All_Content",
+				'class' => MobileUI::iconClass('othercontent', 'before', 'menu-item-othercontent'),
+				'data-event-name' => 'othercontent',
 			),
-		);
+		),
+	);
 }
 
 
-function onUespMobilePersonalTools (&$items)
+function onUespMobilePersonalTools(&$items)
 {
 	global $wgServer;
-	
+
 	$items[] = array(
-			'name' => 'viewdesktop',
-			'components' => array(
-				array(
-					'text' => 'View Desktop',
-					'href' => "$wgServer/wikiredirect.php",
-					'class' => MobileUI::iconClass( 'viewdesktop', 'before', 'menu-item-viewdesktop' ),
-					'data-event-name' => 'viewdesktop',
-				),
+		'name' => 'viewdesktop',
+		'components' => array(
+			array(
+				'text' => 'View Desktop',
+				'href' => "$wgServer/wikiredirect.php",
+				'class' => MobileUI::iconClass('viewdesktop', 'before', 'menu-item-viewdesktop'),
+				'data-event-name' => 'viewdesktop',
 			),
-		);
+		),
+	);
 }
 
 
-function uespMobileAddTopAdDiv( &$out, &$text ) 
+function uespMobileAddTopAdDiv(&$out, &$text)
 {
 	global $uespIsMobile;
 	static $hasAddedDiv = false;
-	
+
 	if ($hasAddedDiv) return true;
 	if (!$uespIsMobile) return true;
-	
+
 	$text = "<div id='uesp_M_1'></div>" . $text;
-	
+
 	$hasAddedDiv = true;
 	return true;
 }
@@ -761,7 +763,7 @@ function uespMobileAddTopAdDiv( &$out, &$text )
 
 function onPreSaveTransformCheckUploadWizard(Parser $parser, string &$text)
 {
-	$result = preg_match( '/=={{int:filedesc}}==
+	$result = preg_match('/=={{int:filedesc}}==
 {{Information
 \|description=(.*)
 \|date=(.*)
@@ -773,16 +775,15 @@ function onPreSaveTransformCheckUploadWizard(Parser $parser, string &$text)
 
 =={{int:license-header}}==
 {{(.*)}}
-*(.*)/', $text, $matches );
+*(.*)/', $text, $matches);
 	if (!$result) return;
-	
+
 	$description = $matches[1];
-	
-	if (preg_match('/{{([a-zA-Z0-9_-])+\|1=(.*)}}/', $description, $descMatches))
-	{
+
+	if (preg_match('/{{([a-zA-Z0-9_-])+\|1=(.*)}}/', $description, $descMatches)) {
 		$description = $descMatches[2];
 	}
-	
+
 	$date = $matches[2];
 	$source = $matches[3];
 	$author = $matches[4];
@@ -791,10 +792,10 @@ function onPreSaveTransformCheckUploadWizard(Parser $parser, string &$text)
 	$license = $matches[7];
 	$license = str_replace("self|", "", $license);
 	$extra = $matches[8];
-	
+
 	$text = "== Summary ==
 $description
-		
+
 == Licensing ==
 {{{$license}}}
 
