@@ -134,7 +134,6 @@ $dir = dirname(__FILE__) . '/';
 
 # Tell Mediawiki where to find files containing extension-specific classes
 # $wgAutoloadClasses['SiteSearchMySQL'] = $dir . 'SiteSearchMySQL.php';
-$wgAutoloadClasses['SiteMonobook'] = $dir . 'SiteMonobook.php';
 $wgAutoloadClasses['SiteMiscFunctions'] = $dir . 'SiteCustomCode_body.php';
 $wgAutoloadClasses['SiteBreadCrumbTrail'] = $dir . 'SiteCustomCode_body.php';
 $wgAutoloadClasses['SiteSpecialRecentChanges'] = $dir . 'SiteSpecialRecentchanges.php';
@@ -203,9 +202,6 @@ $wgHooks['GetDefaultSortkey'][] = 'SiteMiscFunctions::onGetDefaultSortkey';
 $wgHooks['SanitizerAddHtml'][] = 'SiteMiscFunctions::sanitizerAddHtml';              // UESP
 $wgHooks['SanitizerAddWhitelist'][] = 'SiteMiscFunctions::sanitizerAddWhitelist';    // UESP
 $wgHooks['ParserBeforeMakeImage'][] = 'SiteMiscFunctions::addImageClear';
-
-$wgHooks['MonoBookPageBottom'][] = 'SiteMonobook::GoogleAdBottom';                   // UESP
-$wgHooks['MonoBookSearchButtonsSidebar'][] = 'SiteMonobook::SearchButtonsSidebar';
 
 // NB 'patrolmarks' right == 'view recent changes patrol marks'
 // only controls what's seen, not what's allowed
