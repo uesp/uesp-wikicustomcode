@@ -515,8 +515,6 @@ function efSiteSpecialPageInit(&$aSpecialPages)
 	// pagetype(class)=IncludableSpecialPage, $name, $restriction = '', $listed = true, $function = false, $file = 'default'
 	// all of these cases the page object itself is a SpecialPage; the customization is done via a customized Form class
 
-	#	$aSpecialPages['Lonelypages'] = array( 'SpecialPage', 'Lonelypages', '', true, 'efSiteSpecialLonelypages', $dir . 'SiteSpecialLonelypages.php');
-
 	// $aSpecialPages['Search'] = array('SpecialPage', 'Search', '', true, 'efSiteSpecialSearch', $dir . 'SiteSpecialSearch.php');
 	$aSpecialPages['Search'] = 'SiteSpecialSearch';
 	$aSpecialPages['Preferences'] = 'SitePreferencesForm';
