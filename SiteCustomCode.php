@@ -88,7 +88,9 @@ require_once('SiteSpecialPreferences.php');
 require_once('SiteSpecialWantedpages.php');
 require_once('SiteSpecialSearch.php');
 
-$egCustomSiteID = 'Uesp';
+$egCustomSiteID = $wgSitename == 'UESPWiki'
+	? 'Uesp'
+	: 'Site';
 
 $wgExtensionCredits['other'][] = array(
 	'name' => $egCustomSiteID . 'CustomCode',
