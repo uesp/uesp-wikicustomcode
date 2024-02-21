@@ -133,7 +133,6 @@ $wgExtensionFunctions[] = 'efSiteCustomCode';
 $dir = dirname(__FILE__) . '/';
 
 # Tell Mediawiki where to find files containing extension-specific classes
-# $wgAutoloadClasses['SiteSearchMySQL'] = $dir . 'SiteSearchMySQL.php';
 $wgAutoloadClasses['SiteMiscFunctions'] = $dir . 'SiteCustomCode_body.php';
 $wgAutoloadClasses['SiteBreadCrumbTrail'] = $dir . 'SiteCustomCode_body.php';
 $wgAutoloadClasses['SiteSpecialRecentChanges'] = $dir . 'SiteSpecialRecentchanges.php';
@@ -278,7 +277,6 @@ function efSiteCustomCode()
 
 	// Change search type so that new search class is loaded
 	// To disable extension-specific search-related code (i.e., mechanics of how pages are looked up), this line could be commented out -- but some features will still be accessed by SiteSpecialSearch
-	// $wgSearchType = 'SiteSearchMySQL';
 	$hookoption = SFH_OBJECT_ARGS;
 
 	// To disable the {{#sortable:}} parser function, comment out this line
