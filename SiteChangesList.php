@@ -2,13 +2,15 @@
 global $IP;
 require_once "$IP/includes/changes/ChangesList.php";
 
-class SiteOldChangesList extends OldChangesList {
-	public function recentChangesLine( &$rc, $watched = false, $linenumber = NULL ) {
+class SiteOldChangesList extends OldChangesList
+{
+	public function recentChangesLine(&$rc, $watched = false, $linenumber = NULL)
+	{
 		global $wgUser;
 		$orig_patrol = $rc->mAttribs['rc_patrolled'];
 		// turn off patrolling features on line by telling parent that it's been patrolled
 		if ($wgUser->useRCPatrol() && !$rc->mAttribs['rc_patrolled']) {
-			if ($rc->mAttribs['rc_namespace']!=NS_USER && $rc->mAttribs['rc_namespace']!=(NS_USER+1) && !$wgUser->isAllowed('allspacepatrol')) {
+			if ($rc->mAttribs['rc_namespace'] != NS_USER && $rc->mAttribs['rc_namespace'] != (NS_USER + 1) && !$wgUser->isAllowed('allspacepatrol')) {
 				$rc->mAttribs['rc_patrolled'] = true;
 			}
 		}
@@ -19,13 +21,15 @@ class SiteOldChangesList extends OldChangesList {
 	}
 }
 
-class SiteEnhancedChangesList extends EnhancedChangesList {
-	public function recentChangesLine( &$rc, $watched = false, $lineNumber = null ) {
+class SiteEnhancedChangesList extends EnhancedChangesList
+{
+	public function recentChangesLine(&$rc, $watched = false, $lineNumber = null)
+	{
 		global $wgUser;
 		$orig_patrol = $rc->mAttribs['rc_patrolled'];
 		// turn off patrolling features on line by telling parent that it's been patrolled
 		if ($wgUser->useRCPatrol() && !$rc->mAttribs['rc_patrolled']) {
-			if ($rc->mAttribs['rc_namespace']!=NS_USER && $rc->mAttribs['rc_namespace']!=(NS_USER+1) && !$wgUser->isAllowed('allspacepatrol')) {
+			if ($rc->mAttribs['rc_namespace'] != NS_USER && $rc->mAttribs['rc_namespace'] != (NS_USER + 1) && !$wgUser->isAllowed('allspacepatrol')) {
 				$rc->mAttribs['rc_patrolled'] = true;
 			}
 		}

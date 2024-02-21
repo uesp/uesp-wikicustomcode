@@ -1,10 +1,10 @@
 <?php
 $messages = array();
- 
+
 /* *** English *** */
-$messages['en'] = array( 
+$messages['en'] = array(
 	'uespnamespacelist' =>
-'<pre>
+	'<pre>
 # Format:
 # NS_BASE ; NS_ID ; NS_PARENT ; NS_NAME ; NS_MAINPAGE ; NS_CATEGORY ; NS_TRAIL
 # Any missing or blank entries are filled with default values (e.g., NS_CATEGORY=NS_BASE, NS_TRAIL = [[NS_MAINPAGE|NS_NAME]])

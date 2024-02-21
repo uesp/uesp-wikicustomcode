@@ -8,38 +8,34 @@ require_once "$IP/includes/widget/search/SearchFormWidget.php";
 
 class SiteSearchFormWidget extends MediaWiki\Widget\Search\SearchFormWidget
 {
-	
-	
-	protected function powerSearchBox( $term, array $opts ) 
+	protected function powerSearchBox($term, array $opts)
 	{
 		$checked_data = array();
 		$checked_talkpages = "";
-		
-		if ( $this->searchTalkPages ) $checked_talkpages = 'checked="checked"';
-		
-			//See which namespace boxes to check
+
+		if ($this->searchTalkPages) $checked_talkpages = 'checked="checked"';
+
+		//See which namespace boxes to check
 		$activeNamespaces = $this->specialSearch->getNamespaces();
-		
-		foreach ( $this->searchConfig->searchableNamespaces() as $namespace => $name) 
-		{
-			if ( in_array( $namespace, $activeNamespaces ) ) 
+
+		foreach ($this->searchConfig->searchableNamespaces() as $namespace => $name) {
+			if (in_array($namespace, $activeNamespaces))
 				$checked_data[$namespace] = 'checked="checked"';
 			else
 				$checked_data[$namespace] = '';
-		
 		}
-		
+
 		$remember_token = "";
 		$user = $this->specialSearch->getUser();
-		if ( $user->isLoggedIn() ) {
+		if ($user->isLoggedIn()) {
 			$remember_token = $user->getEditToken(
 				'searchnamespace',
 				$this->specialSearch->getRequest()
 			);
 		}
-		
+
 		$result = <<< UESP_EOT
-		
+
 <fieldset id="mw-searchoptions" style="margin:0em;"><legend>Advanced search</legend>
 <table style="clear:both; text-align:top" cellpadding="0" cellspacing="0" border="0">
 	<tr style="vertical-align:top">
@@ -117,7 +113,7 @@ class SiteSearchFormWidget extends MediaWiki\Widget\Search\SearchFormWidget
 </table>
 <div class="divider"></div>
 <input name="talkpages" type="checkbox" value="1" $checked_talkpages id="mw-search-ns-talkpages" />&#160;<label for="talkpages">Talk Pages</label>
-&nbsp;	
+&nbsp;
 <input name="nsRemember" type="checkbox" value=$remember_token id="mw-search-powersearch-remember" />&#160;<label for="mw-search-powersearch-remember">Remember selection for future searches</label>
 <input type="hidden" value="advanced" name="profile" />
 <div id="mw-search-togglebox"></div>
@@ -126,5 +122,4 @@ class SiteSearchFormWidget extends MediaWiki\Widget\Search\SearchFormWidget
 UESP_EOT;
 		return $result;
 	}
-	
 };
