@@ -389,20 +389,20 @@ class SiteMiscFunctions
 	public static function RestrictBlockHook(&$ban, &$user)
 	{
 		//check if the ban disables talk page editing
-		global $wgBlockAllowsUTEdit;
+		global $wgBlockAllowsUTEdit, $egRestrictBlockLength;
+
 		if ($wgBlockAllowsUTEdit && !$ban->mAllowUsertalk && !$user->isAllowed('blocktalk')) {
-			return wfMsgWikiHtml('restrictblock-denied-utalk');
+			return wfMessage('restrictblock-denied-utalk')->text();
 		}
 		//check for block length
 		if (!$user->isAllowed('unrestrictedblock')) {
-			global $egRestrictBlockLength;
 			//infinity is right out
 			if ($ban->mExpiry === 'infinity') {
-				return wfMsgWikiHtml('restrictblock-denied', $egRestrictBlockLength);
+				return wfMessage('restrictblock-denied', $egRestrictBlockLength)->text();
 			}
 			$timediff = (wfTimestamp(TS_UNIX, $ban->mExpiry) - time());
 			if ($timediff > $egRestrictBlockLength) {
-				return wfMsgWikiHtml('restrictblock-denied', $egRestrictBlockLength);
+				return wfMessage('restrictblock-denied', $egRestrictBlockLength)->text();
 			}
 		}
 		return true;
@@ -548,6 +548,7 @@ class SiteBreadCrumbTrail
 
 	public static function implementInitTrail(&$parser)
 	{
+		/** @var SiteBreadCrumbTrail $object */
 		$object = self::newFromParser($parser);
 		$args = func_get_args();
 		array_shift($args);
@@ -561,6 +562,7 @@ class SiteBreadCrumbTrail
 
 	public static function implementSetTrail(&$parser)
 	{
+		/** @var SiteBreadCrumbTrail $object */
 		$object = self::newFromParser($parser);
 		$args = func_get_args();
 		array_shift($args);
@@ -577,6 +579,7 @@ class SiteBreadCrumbTrail
 
 	public static function implementAddToTrail(&$parser)
 	{
+		/** @var SiteBreadCrumbTrail $object */
 		$object = self::newFromParser($parser);
 		$args = func_get_args();
 		array_shift($args);

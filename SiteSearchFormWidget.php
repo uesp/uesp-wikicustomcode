@@ -8,6 +8,9 @@ require_once "$IP/includes/widget/search/SearchFormWidget.php";
 
 class SiteSearchFormWidget extends MediaWiki\Widget\Search\SearchFormWidget
 {
+	/** @var bool */
+	public $searchTalkPages;
+
 	protected function powerSearchBox($term, array $opts)
 	{
 		$checked_data = array();
