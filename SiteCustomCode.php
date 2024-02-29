@@ -115,17 +115,17 @@ define('MAG_SITE_ADDTOTRAIL', 'addtotrail');
 # (0 means case-insensitive, 1 means case-sensitive)
 $egSiteOtherMagicWords =
 	array(
-		MAG_SITE_CORENAME => 0,
-		MAG_SITE_SORTABLECORENAME => 0,
-		MAG_SITE_LABELNAME => 0
+		#MAG_SITE_CORENAME => 0,
+		#MAG_SITE_SORTABLECORENAME => 0,
+		#MAG_SITE_LABELNAME => 0
 	);
 $egSiteParserFunctions =
 	array(
-		MAG_SITE_SORTABLE => 0,
-		MAG_SITE_LABEL => 0,
-		MAG_SITE_INITTRAIL => 0,
-		MAG_SITE_SETTRAIL => 0,
-		MAG_SITE_ADDTOTRAIL => 0
+		#MAG_SITE_SORTABLE => 0,
+		#MAG_SITE_LABEL => 0,
+		#MAG_SITE_INITTRAIL => 0,
+		#MAG_SITE_SETTRAIL => 0,
+		#MAG_SITE_ADDTOTRAIL => 0
 	);
 
 # ParserFirstCallInit does not work correctly in all versions of MediaWiki
@@ -136,7 +136,7 @@ $dir = dirname(__FILE__) . '/';
 
 # Tell Mediawiki where to find files containing extension-specific classes
 $wgAutoloadClasses['SiteMiscFunctions'] = $dir . 'SiteCustomCode_body.php';
-$wgAutoloadClasses['SiteBreadCrumbTrail'] = $dir . 'SiteCustomCode_body.php';
+# $wgAutoloadClasses['SiteBreadCrumbTrail'] = $dir . 'SiteCustomCode_body.php';
 $wgAutoloadClasses['SiteSpecialRecentChanges'] = $dir . 'SiteSpecialRecentchanges.php';
 $wgAutoloadClasses['SiteOldChangesList'] = $dir . 'SiteChangesList.php';
 $wgAutoloadClasses['SiteEnhancedChangesList'] = $dir . 'SiteChangesList.php';
@@ -184,8 +184,8 @@ $wgHooks['IsFileCacheable'][] = 'SiteMiscFunctions::isFileCacheable';
 
 # Hooks for creating bread crumb trail and inserting trail where subpage normally appears
 # To disable these features, change <site>'settrail' to 0 (system message)
-$wgHooks['OutputPageParserOutput'][] = 'SiteBreadCrumbTrail::getCachedTrail';
-$wgHooks['SkinSubPageSubtitle'][] = 'SiteBreadCrumbTrail::subpageHook';
+# $wgHooks['OutputPageParserOutput'][] = 'SiteBreadCrumbTrail::getCachedTrail';
+# $wgHooks['SkinSubPageSubtitle'][] = 'SiteBreadCrumbTrail::subpageHook';
 
 
 # Hook to add a rel=canonical tag to the header
@@ -282,19 +282,19 @@ function efSiteCustomCode()
 	$hookoption = SFH_OBJECT_ARGS;
 
 	// To disable the {{#sortable:}} parser function, comment out this line
-	$wgParser->setFunctionHook(MAG_SITE_SORTABLE, array('SiteMiscFunctions', 'implementSortable'));
+	#$wgParser->setFunctionHook(MAG_SITE_SORTABLE, array('SiteMiscFunctions', 'implementSortable'));
 	// To disable the {{#label:}} parser function, comment out this line
-	$wgParser->setFunctionHook(MAG_SITE_LABEL, array('SiteMiscFunctions', 'implementLabel'));
+	#$wgParser->setFunctionHook(MAG_SITE_LABEL, array('SiteMiscFunctions', 'implementLabel'));
 
 	// parser function versions of pagename variables
-	$wgParser->setFunctionHook(MAG_SITE_CORENAME, array('SiteMiscFunctions', 'implementCorename'), SFH_NO_HASH);
-	$wgParser->setFunctionHook(MAG_SITE_LABELNAME, array('SiteMiscFunctions', 'implementLabelname'), SFH_NO_HASH);
-	$wgParser->setFunctionHook(MAG_SITE_SORTABLECORENAME, array('SiteMiscFunctions', 'implementSortableCorename'), SFH_NO_HASH);
+	#$wgParser->setFunctionHook(MAG_SITE_CORENAME, array('SiteMiscFunctions', 'implementCorename'), SFH_NO_HASH);
+	#$wgParser->setFunctionHook(MAG_SITE_LABELNAME, array('SiteMiscFunctions', 'implementLabelname'), SFH_NO_HASH);
+	#$wgParser->setFunctionHook(MAG_SITE_SORTABLECORENAME, array('SiteMiscFunctions', 'implementSortableCorename'), SFH_NO_HASH);
 
 	// {{#inittrail:}}, {{#settrail:}}, and {{#addtotrail:}} parser functions
-	$wgParser->setFunctionHook(MAG_SITE_INITTRAIL, array('SiteBreadCrumbTrail', 'implementInitTrail'), $hookoption);
-	$wgParser->setFunctionHook(MAG_SITE_SETTRAIL, array('SiteBreadCrumbTrail', 'implementSetTrail'), $hookoption);
-	$wgParser->setFunctionHook(MAG_SITE_ADDTOTRAIL, array('SiteBreadCrumbTrail', 'implementAddToTrail'), $hookoption);
+	#$wgParser->setFunctionHook(MAG_SITE_INITTRAIL, array('SiteBreadCrumbTrail', 'implementInitTrail'), $hookoption);
+	#$wgParser->setFunctionHook(MAG_SITE_SETTRAIL, array('SiteBreadCrumbTrail', 'implementSetTrail'), $hookoption);
+	#$wgParser->setFunctionHook(MAG_SITE_ADDTOTRAIL, array('SiteBreadCrumbTrail', 'implementAddToTrail'), $hookoption);
 
 	$prefix = strtolower($egCustomSiteID);
 	# Default values for custom user preferences
