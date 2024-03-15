@@ -372,12 +372,16 @@ function UESP_isShowAds()
 	static $cachedUser = null;
 
 	if (!$wgUser->isLoggedIn()) return true;
-	if (!class_exists('UespPatreonCommon', false)) return true; // Don't crash if UespPatreon not installed.
 
 	if ($cachedUser == null) {
 		$db = wfGetDB(DB_SLAVE);
 
-		$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()]);
+		try {
+			$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()]);
+		} catch (Exception $e) {
+			return true;
+		}
+
 		if ($res->numRows() == 0) return true;
 
 		$row = $res->fetchRow();
