@@ -100,34 +100,6 @@ $wgExtensionCredits['other'][] = array(
 	'version' => '0.9.7',
 );
 
-/*
- * Extension definitions
- */
-# definitions for magic words and parser functions
-define('MAG_SITE_CORENAME', 'CORENAME');
-define('MAG_SITE_SORTABLECORENAME', 'SORTABLECORENAME');
-define('MAG_SITE_LABELNAME', 'LABELNAME');
-define('MAG_SITE_SORTABLE', 'sortable');
-define('MAG_SITE_LABEL', 'label');
-define('MAG_SITE_INITTRAIL', 'inittrail');
-define('MAG_SITE_SETTRAIL', 'settrail');
-define('MAG_SITE_ADDTOTRAIL', 'addtotrail');
-# (0 means case-insensitive, 1 means case-sensitive)
-$egSiteOtherMagicWords =
-	array(
-		#MAG_SITE_CORENAME => 0,
-		#MAG_SITE_SORTABLECORENAME => 0,
-		#MAG_SITE_LABELNAME => 0
-	);
-$egSiteParserFunctions =
-	array(
-		#MAG_SITE_SORTABLE => 0,
-		#MAG_SITE_LABEL => 0,
-		#MAG_SITE_INITTRAIL => 0,
-		#MAG_SITE_SETTRAIL => 0,
-		#MAG_SITE_ADDTOTRAIL => 0
-	);
-
 # ParserFirstCallInit does not work correctly in all versions of MediaWiki
 # Function is called too late so use below line all the time.
 $wgExtensionFunctions[] = 'efSiteCustomCode';
@@ -136,7 +108,6 @@ $dir = dirname(__FILE__) . '/';
 
 # Tell Mediawiki where to find files containing extension-specific classes
 $wgAutoloadClasses['SiteMiscFunctions'] = $dir . 'SiteCustomCode_body.php';
-# $wgAutoloadClasses['SiteBreadCrumbTrail'] = $dir . 'SiteCustomCode_body.php';
 $wgAutoloadClasses['SiteSpecialRecentChanges'] = $dir . 'SiteSpecialRecentchanges.php';
 $wgAutoloadClasses['SiteOldChangesList'] = $dir . 'SiteChangesList.php';
 $wgAutoloadClasses['SiteEnhancedChangesList'] = $dir . 'SiteChangesList.php';
@@ -174,11 +145,6 @@ $wgExtensionMessagesFiles['sitecustomcode'] = $dir . 'SiteCustomCode.i18n.php';
 $wgExtensionMessagesFiles['sitecustomcodeAlias'] = $dir . 'SiteCustomCode.alias.php';
 $wgExtensionMessagesFiles['sitecustomcodeMagic'] = $dir . 'SiteCustomCode.i18n.magic.php';
 
-# Add magic words and parser functions
-# Comment out the first line to disable all magic words
-$wgHooks['MagicWordwgVariableIDs'][] = 'SiteMiscFunctions::declareMagicWords';
-$wgHooks['ParserGetVariableValueSwitch'][] = 'SiteMiscFunctions::assignMagicWords';
-
 # Hook for cacheable check: used to tell code not to cache category pages
 $wgHooks['IsFileCacheable'][] = 'SiteMiscFunctions::isFileCacheable';
 
@@ -192,13 +158,10 @@ $wgHooks['IsFileCacheable'][] = 'SiteMiscFunctions::isFileCacheable';
 $wgHooks['OutputPageParserOutput'][] = 'SiteMiscFunctions::addCanonicalToHeader';
 
 # Alternate way to deal with links
-#$wgHooks['InternalParseBeforeLinks'][] = 'SiteMiscFunctions::parseLinks'; // ESPO
 # Hook for adding search-related options to user preferences
 $wgHooks['UserToggles'][] = 'SiteMiscFunctions::addUserToggles';
 
 # Extension-specific hooks added to mediawiki code
-$wgHooks['ParserDuringPreSaveTransform'][] = 'SiteMiscFunctions::preSaveTransform';  // UESP
-// $wgHooks['ParserGetDefaultSort'][] = 'SiteMiscFunctions::getDefaultSort';
 $wgHooks['GetDefaultSortkey'][] = 'SiteMiscFunctions::onGetDefaultSortkey';
 $wgHooks['SanitizerAddHtml'][] = 'SiteMiscFunctions::sanitizerAddHtml';              // UESP
 $wgHooks['SanitizerAddWhitelist'][] = 'SiteMiscFunctions::sanitizerAddWhitelist';    // UESP
@@ -216,8 +179,6 @@ $wgGroupPermissions['userpatroller']['skipcaptcha'] = true;
 $wgGroupPermissions['patroller']['allspacepatrol'] = true;
 $wgGroupPermissions['sysop']['allspacepatrol'] = true;
 $wgGroupPermissions['bot']['allspacepatrol'] = true;
-#$wgAddGroups['sysop'][] = 'userpatroller'; // Moved back to LocalSettings.php to avoid order of inclusion issues
-#$wgRemoveGroups['sysop'][] = 'userpatroller';
 
 // Blocking limitations
 $egRestrictBlockLength = 21600;
@@ -232,7 +193,6 @@ $wgGroupPermissions['sysop']['unrestrictedblock'] = true;
 # Global flag to enable/disable google ads
 # (primarily for my convenience so I can disable ads without editing extension code)
 $egSiteEnableGoogleAds = true;  // UESP
-#$egSiteEnableGoogleAds = false; // ESPO
 
 $wgResourceModules['ext.UespCustomCode.ad'] = array(
 	'position' => 'top',
@@ -275,26 +235,10 @@ $wgResourceModules['ext.UespCustomCode.analytics'] = array(
 
 function efSiteCustomCode()
 {
-	global $wgParser, $wgContLang, $wgDefaultUserOptions, $egCustomSiteID, $uespIsMobile, $wgOut, $uespIsApp;
+	global $wgContLang, $wgDefaultUserOptions, $egCustomSiteID, $uespIsMobile, $wgOut, $uespIsApp;
 
 	// Change search type so that new search class is loaded
 	// To disable extension-specific search-related code (i.e., mechanics of how pages are looked up), this line could be commented out -- but some features will still be accessed by SiteSpecialSearch
-	$hookoption = SFH_OBJECT_ARGS;
-
-	// To disable the {{#sortable:}} parser function, comment out this line
-	#$wgParser->setFunctionHook(MAG_SITE_SORTABLE, array('SiteMiscFunctions', 'implementSortable'));
-	// To disable the {{#label:}} parser function, comment out this line
-	#$wgParser->setFunctionHook(MAG_SITE_LABEL, array('SiteMiscFunctions', 'implementLabel'));
-
-	// parser function versions of pagename variables
-	#$wgParser->setFunctionHook(MAG_SITE_CORENAME, array('SiteMiscFunctions', 'implementCorename'), SFH_NO_HASH);
-	#$wgParser->setFunctionHook(MAG_SITE_LABELNAME, array('SiteMiscFunctions', 'implementLabelname'), SFH_NO_HASH);
-	#$wgParser->setFunctionHook(MAG_SITE_SORTABLECORENAME, array('SiteMiscFunctions', 'implementSortableCorename'), SFH_NO_HASH);
-
-	// {{#inittrail:}}, {{#settrail:}}, and {{#addtotrail:}} parser functions
-	#$wgParser->setFunctionHook(MAG_SITE_INITTRAIL, array('SiteBreadCrumbTrail', 'implementInitTrail'), $hookoption);
-	#$wgParser->setFunctionHook(MAG_SITE_SETTRAIL, array('SiteBreadCrumbTrail', 'implementSetTrail'), $hookoption);
-	#$wgParser->setFunctionHook(MAG_SITE_ADDTOTRAIL, array('SiteBreadCrumbTrail', 'implementAddToTrail'), $hookoption);
 
 	$prefix = strtolower($egCustomSiteID);
 	# Default values for custom user preferences
