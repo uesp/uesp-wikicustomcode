@@ -68,7 +68,6 @@ $wgHooks['ParserPreSaveTransformComplete'][] = 'onPreSaveTransformCheckUploadWiz
 
 $wgExtensionMessagesFiles['sitecustomcode'] = $dir . 'SiteCustomCode.i18n.php';
 $wgExtensionMessagesFiles['sitecustomcodeAlias'] = $dir . 'SiteCustomCode.alias.php';
-$wgExtensionMessagesFiles['sitecustomcodeMagic'] = $dir . 'SiteCustomCode.i18n.magic.php';
 
 # Hook for cacheable check: used to tell code not to cache category pages
 $wgHooks['IsFileCacheable'][] = 'SiteMiscFunctions::isFileCacheable';
