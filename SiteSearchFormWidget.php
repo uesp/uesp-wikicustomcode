@@ -74,9 +74,9 @@ class SiteSearchFormWidget extends MediaWiki\Widget\Search\SearchFormWidget
 			<span style="white-space: nowrap"><input name="ns108" type="checkbox" value="1" $checked_data[108] id="mw-search-ns108" />&#160;<label for="mw-search-ns108">Redguard</label></span><br>
 			<span style="white-space: nowrap"><input name="ns106" type="checkbox" value="1" $checked_data[106] id="mw-search-ns106" />&#160;<label for="mw-search-ns106">Battlespire</label></span><br>
 			<span style="white-space: nowrap"><input name="ns104" type="checkbox" value="1" $checked_data[104] id="mw-search-ns104" />&#160;<label for="mw-search-ns104">Daggerfall</label></span><br>
-			<span style="white-space: nowrap"><input name="ns156" type="checkbox" value="1" $checked_data[156] id="mw-search-ns156" />&#160;<label for="mw-search-ns156">Tes2Mod</label></span><br>
+			<span style="white-space: nowrap"><input name="ns156" type="checkbox" value="1" $checked_data[156] id="mw-search-ns156" />&#160;<label for="mw-search-ns156">Daggerfall Mod</label></span><br>
 			<span style="white-space: nowrap"><input name="ns102" type="checkbox" value="1" $checked_data[102] id="mw-search-ns102" />&#160;<label for="mw-search-ns102">Arena</label></span><br>
-			<span style="white-space: nowrap"><input name="ns154" type="checkbox" value="1" $checked_data[154] id="mw-search-ns154" />&#160;<label for="mw-search-ns154">Tes1Mod</label></span>
+			<span style="white-space: nowrap"><input name="ns154" type="checkbox" value="1" $checked_data[154] id="mw-search-ns154" />&#160;<label for="mw-search-ns154">Arena Mod</label></span>
 		</td><td>
 			<b>TES Travels</b><br>
 			<span style="white-space: nowrap"><input name="ns136" type="checkbox" value="1" $checked_data[136] id="mw-search-ns136" />&#160;<label for="mw-search-ns136">OBMobile</label></span><br>
