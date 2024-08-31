@@ -85,6 +85,7 @@ class SiteSearchFormWidget extends MediaWiki\Widget\Search\SearchFormWidget
 			<span style="white-space: nowrap"><input name="ns138" type="checkbox" value="1" $checked_data[138] id="mw-search-ns138" />&#160;<label for="mw-search-ns138">Stormhold</label></span>
 		</td><td>
 			<b>Other TES</b><br>
+			<span style="white-space: nowrap"><input name="ns186" type="checkbox" value="1" $checked_data[186] id="mw-search-ns186" />&#160;<label for="mw-search-ns186">Betrayal</label></span><br>
 			<span style="white-space: nowrap"><input name="ns152" type="checkbox" value="1" $checked_data[152] id="mw-search-ns152" />&#160;<label for="mw-search-ns152">Blades</label></span><br>
 			<span style="white-space: nowrap"><input name="ns158" type="checkbox" value="1" $checked_data[158] id="mw-search-ns158" />&#160;<label for="mw-search-ns158">Call to Arms</label></span><br>
 			<span style="white-space: nowrap"><input name="ns184" type="checkbox" value="1" $checked_data[184] id="mw-search-ns184" />&#160;<label for="mw-search-ns184">Castles</label></span><br>
