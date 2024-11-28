@@ -64,6 +64,8 @@ $wgHooks['OutputPageBeforeHTML'][] = 'uespMobileAddTopAdDiv';
 $wgHooks['BeforeInitialize'][] = 'onUespBeforeInitialize';
 $wgHooks['ParserPreSaveTransformComplete'][] = 'onPreSaveTransformCheckUploadWizard'; //Only works in 1.35+
 
+$wgHooks['MediaWikiPerformAction'][] = 'onUespMediaWikiPerformAction';
+
 # Load messages
 
 $wgExtensionMessagesFiles['sitecustomcode'] = $dir . 'SiteCustomCode.i18n.php';
@@ -625,6 +627,27 @@ $description
 {{{$license}}}
 
 $extra";
+}
+
+
+function onUespMediaWikiPerformAction( $output, $article, $title, $user, $request, $wiki )
+{
+	$action = $request->getVal('action');
+	$diff = $request->getVal('diff');
+	
+		//Block Anonymous diff requests
+	if ($action == "" && $diff != "")
+	{
+		if (!$user || $user->isAnon())
+		{
+			$titleText = "";
+			if ($title) $titleText = $title->getPrefixedText();
+			error_log("Blocked Anonymous Diff Request on $titleText : action=$action : diff=$diff");
+			return false;
+		}
+	}
+	
+	return true;
 }
 
 
