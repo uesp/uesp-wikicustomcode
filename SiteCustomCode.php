@@ -640,9 +640,13 @@ function onUespMediaWikiPerformAction( $output, $article, $title, $user, $reques
 	{
 		if (!$user || $user->isAnon())
 		{
-			$titleText = "";
+			$titleText = "?";
 			if ($title) $titleText = $title->getPrefixedText();
 			error_log("Blocked Anonymous Diff Request on $titleText : action=$action : diff=$diff");
+			
+				//Difference between revisions of "User:Daveh/ESO Update"
+			$output->addHTML("<h1 id=\"firstHeading\" class=\"firstHeading\" lang=\"en\">Difference between revisions of \"$titleText\"</h1>");
+			$output->addHTML("Article diff output is disabled for anonymous users. Please <a href='/wiki/Special:UserLogin'>Login</a> to view.");
 			return false;
 		}
 	}
