@@ -131,7 +131,7 @@
 		"UespWebpHandler": "includes/UespWebpHandler.php"
 	},
 	"Hooks": {
-		"BeforeInitialize": "SiteCustomCodeHooks::onBeforeInitialize",
+		"BeforeInitialize": "SiteCustomCodeHooks::onUespBeforeInitialize",
 		"BeforePageDisplay": "SiteCustomCodeHooks::UESP_beforePageDisplay",
 		"BlockIp": "SiteMiscFunctions::RestrictBlockHook",
 		"FetchChangesList": "SiteMiscFunctions::fetchChangesList",
