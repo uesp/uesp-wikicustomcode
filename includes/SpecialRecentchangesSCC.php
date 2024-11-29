@@ -11,7 +11,7 @@
 global $IP;
 require_once "$IP/includes/specials/SpecialRecentchanges.php";
 
-class SiteSpecialRecentChanges extends SpecialRecentChanges
+class SpecialRecentChangesSCC extends SpecialRecentChanges
 {
 	protected $customnslink;
 

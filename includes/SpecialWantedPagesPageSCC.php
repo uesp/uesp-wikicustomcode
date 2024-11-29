@@ -6,7 +6,7 @@
 global $IP;
 require_once "$IP/includes/specials/SpecialWantedpages.php";
 
-class SiteWantedPagesPage extends WantedPagesPage
+class SpecialWantedPagesPageSCC extends WantedPagesPage
 {
 
 	function __construct($name = 'Wantedpages')

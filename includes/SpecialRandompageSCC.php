@@ -4,9 +4,8 @@ global $IP;
 require_once "$IP/includes/specials/SpecialRandompage.php";
 
 
-class SiteSpecialRandomPage extends RandomPage
+class SpecialRandomPageSCC extends RandomPage
 {
-
 	public function __construct($name = 'Randompage')
 	{
 		parent::__construct($name);
@@ -15,11 +14,9 @@ class SiteSpecialRandomPage extends RandomPage
 
 	public function execute($par)
 	{
-		global $wgOut, $wgParser;
+		global $wgOut;
 
-		//$wgParser->disableCache();
 		$wgOut->enableClientCache(false);
-
 		parent::execute($par);
 	}
 };

@@ -8,7 +8,7 @@ global $IP;
 require_once "$IP/includes/specials/SpecialPreferences.php";
 
 
-class SitePreferencesForm extends SpecialPreferences
+class SpecialPreferencesSCC extends SpecialPreferences
 {
 	protected $mRcNs = array();
 	protected $mRcNsTalk = NULL;

@@ -1,6 +1,6 @@
 <?php
 
-class SiteSpecialMobilePreferences extends SpecialMobilePreferences
+class SpecialMobilePreferencesSCC extends SpecialMobilePreferences
 {
 
 	protected $validTabs = [

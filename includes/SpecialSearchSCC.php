@@ -16,7 +16,7 @@ use MediaWiki\Widget\Search\SimpleSearchResultWidget;
 use MediaWiki\Widget\Search\SimpleSearchResultSetWidget;
 
 
-class SiteSpecialSearch extends SpecialSearch
+class SpecialSearchSCC extends SpecialSearch
 {
 	protected $searchTalkPages;
 
