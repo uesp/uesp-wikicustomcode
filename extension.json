@@ -119,7 +119,7 @@
 	},
 	"AutoloadClasses": {
 		"SiteCustomCodeHooks": "includes/SiteCustomCodeHooks.php",
-		"SiteEnhancedChangesList": "includes/SiteChangesList.php",
+		"SiteEnhancedChangesList": "includes/SiteEnhancedChangesList.php",
 		"SiteMiscFunctions": "includes/SiteMiscFunctions.php",
 		"SiteOldChangesList": "includes/SiteOldChangesList.php",
 		"SpecialMobilePreferencesSCC": "includes/SpecialMobilePreferencesSCC.php",
