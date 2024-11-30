@@ -105,22 +105,18 @@ $description
 $extra";
 	}
 
-	public static function onUespBeforeInitialize()
+	public static function onUespBeforeInitialize(&$title, $unused, $output, $user, $request, $mediaWiki)
 	{
-		global $wgOut;
 		global $uespIsApp;
 
 		if ($uespIsApp) {
-			$wgOut->addModules('ext.UespCustomCode.app.scripts');
-			$wgOut->addModuleStyles('ext.UespCustomCode.app.styles');
-		} else {
-			if (self::UESP_isShowAds()) {
-				$wgOut->addModules('ext.UespCustomCode.analytics');
+			$output->addModules('ext.UespCustomCode.app.scripts');
+			$output->addModuleStyles('ext.UespCustomCode.app.styles');
+		} elseif (self::UESP_isShowAds()) {
+			$output->addModules('ext.UespCustomCode.analytics');
 
-				// Old Curse Ads
-				//$wgOut->addModules( 'ext.UespCustomCode.ad' );
-			} else {
-			}
+			// Old Curse Ads
+			//$output->addModules( 'ext.UespCustomCode.ad' );
 		}
 	}
 
