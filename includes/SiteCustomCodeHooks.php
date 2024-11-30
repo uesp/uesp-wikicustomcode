@@ -367,7 +367,7 @@ $extra";
 		if (!$wgUser->isLoggedIn()) return true;
 
 		if ($cachedUser == null) {
-			$db = wfGetDB(DB_SLAVE);
+			$db = wfGetDB(DB_REPLICA);
 
 			try {
 				$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()]);
