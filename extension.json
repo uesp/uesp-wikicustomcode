@@ -146,7 +146,6 @@
 		"OutputPageParserOutput": "SiteMiscFunctions::addCanonicalToHeader",
 		"ParserBeforeMakeImage": "SiteMiscFunctions::addImageClear",
 		"ParserPreSaveTransformComplete": "SiteCustomCodeHooks::onPreSaveTransformCheckUploadWizard",
-		"RequestContextCreateSkinMobile": "SiteCustomCodeHooks::efSiteRequestContextCreateSkinMobile",
 		"SanitizerAddHtml": "SiteMiscFunctions::sanitizerAddHtml",
 		"SanitizerAddWhitelist": "SiteMiscFunctions::sanitizerAddWhitelist",
 		"SpecialPage_initList": "SiteCustomCodeHooks::efSiteSpecialPageInit",

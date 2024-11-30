@@ -20,15 +20,24 @@ class SiteCustomCodeHooks
 			$wgDefaultUserOptions['rcNs' . $ns] = 1;
 		}
 
-		$uespIsMobile = class_exists("MobileContext") && MobileContext::singleton()->isMobileDevice();
+		if (class_exists("MobileContext") && MobileContext::singleton()->isMobileDevice()) {
+			$uespIsMobile = true;
+
+			// These hooks are here so as they are called after the same hook in MobileFrontEnd
+			self::setupUespMobileHooks();
+		}
 
 		return true;
 	}
 
+	public static function efSiteMobilePrefsSpecialPageInit(&$aSpecialPages)
+	{
+		$aSpecialPages['Preferences'] = 'SiteSpecialMobilePreferences';
+	}
+
 	public static function efSiteRequestContextCreateSkinMobile(MobileContext $mobileContext, Skin $skin)
 	{
-		echo 'Hello';
-		if ($mobileContext->isMobileDevice() && $skin instanceof SkinMinerva) {
+		if ($skin instanceof SkinMinerva) {
 			// Turn off the use of the Special:MobileOptions page for preferences
 			$skin->setSkinOptions([
 				SkinMinerva::OPTION_MOBILE_OPTIONS => false,
@@ -287,6 +296,19 @@ $extra";
 		$body = quoted_printable_encode($body);
 
 		return true;
+	}
+
+	public static function setupUespMobileHooks()
+	{
+		// This method is called externally by config/Mobile.php, not just from efSiteCustomCode().
+		global $wgHooks;
+		static $hooked = false; // This function can be called multiple times, but we should only add the hooks once.
+
+		if (!$hooked) {
+			$wgHooks['SpecialPage_initList'][] = 'SiteCustomCodeHooks::efSiteMobilePrefsSpecialPageInit';
+			$wgHooks['RequestContextCreateSkinMobile'][] = 'SiteCustomCodeHooks::efSiteRequestContextCreateSkinMobile';
+			$hooked = true;
+		}
 	}
 
 	public static function UESP_beforePageDisplay(&$out)
