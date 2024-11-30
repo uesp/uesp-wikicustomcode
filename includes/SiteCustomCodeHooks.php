@@ -32,7 +32,7 @@ class SiteCustomCodeHooks
 
 	public static function efSiteMobilePrefsSpecialPageInit(&$aSpecialPages)
 	{
-		$aSpecialPages['Preferences'] = 'SiteSpecialMobilePreferences';
+		$aSpecialPages['Preferences'] = 'SpecialMobilePreferencesSCC';
 	}
 
 	public static function efSiteRequestContextCreateSkinMobile(MobileContext $mobileContext, Skin $skin)
