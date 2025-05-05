@@ -30,10 +30,10 @@ class SiteCustomCodeHooks
 		return true;
 	}
 
-	public static function efSiteMobilePrefsSpecialPageInit(&$aSpecialPages)
+	/*public static function efSiteMobilePrefsSpecialPageInit(&$aSpecialPages)
 	{
 		$aSpecialPages['Preferences'] = 'SpecialMobilePreferencesSCC';
-	}
+	}*/
 
 	public static function efSiteRequestContextCreateSkinMobile(MobileContext $mobileContext, Skin $skin)
 	{
@@ -57,9 +57,10 @@ class SiteCustomCodeHooks
 		unset($aSpecialPages['Booksources']);
 		unset($aSpecialPages['Withoutinterwiki']);
 		unset($aSpecialPages['Mostinterwikis']);
-		$aSpecialPages['Preferences'] = (class_exists("MobileContext") && MobileContext::singleton()->isMobileDevice())
+		/*$aSpecialPages['Preferences'] = (class_exists("MobileContext") && MobileContext::singleton()->isMobileDevice())
 			? 'SpecialMobilePreferencesSCC'
-			: 'SpecialPreferencesSCC';
+			: 'SpecialPreferencesSCC';*/
+		$aSpecialPages['Preferences'] = 'SpecialPreferencesSCC';
 
 		return true;
 	}
@@ -301,7 +302,7 @@ $extra";
 		static $hooked = false; // This function can be called multiple times, but we should only add the hooks once.
 
 		if (!$hooked) {
-			$wgHooks['SpecialPage_initList'][] = 'SiteCustomCodeHooks::efSiteMobilePrefsSpecialPageInit';
+			//$wgHooks['SpecialPage_initList'][] = 'SiteCustomCodeHooks::efSiteMobilePrefsSpecialPageInit';
 			$wgHooks['RequestContextCreateSkinMobile'][] = 'SiteCustomCodeHooks::efSiteRequestContextCreateSkinMobile';
 			$hooked = true;
 		}

@@ -136,7 +136,6 @@
 		"SiteEnhancedChangesList": "includes/SiteEnhancedChangesList.php",
 		"SiteMiscFunctions": "includes/SiteMiscFunctions.php",
 		"SiteOldChangesList": "includes/SiteOldChangesList.php",
-		"SpecialMobilePreferencesSCC": "includes/SpecialMobilePreferencesSCC.php",
 		"SpecialPreferencesSCC": "includes/SpecialPreferencesSCC.php",
 		"SpecialRandompageSCC": "includes/SpecialRandompageSCC.php",
 		"SpecialRecentChangesSCC": "includes/SpecialRecentchangesSCC.php",
