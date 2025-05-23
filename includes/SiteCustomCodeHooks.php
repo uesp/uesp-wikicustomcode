@@ -133,7 +133,8 @@ $extra";
 			if (!$user || $user->isAnon()) {
 				$titleText = "?";
 				if ($title) $titleText = $title->getPrefixedText();
-				error_log("Blocked Anonymous Diff Request on $titleText : action=$action : diff=$diff");
+				
+				//error_log("Blocked Anonymous Diff Request on $titleText : action=$action : diff=$diff");
 
 				//Difference between revisions of "User:Daveh/ESO Update"
 				$output->addHTML("<h1 id=\"firstHeading\" class=\"firstHeading\" lang=\"en\">Difference between revisions of \"$titleText\"</h1>");
