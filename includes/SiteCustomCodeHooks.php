@@ -133,7 +133,6 @@ $extra";
 			if (!$user || $user->isAnon()) {
 				$titleText = "?";
 				if ($title) $titleText = $title->getPrefixedText();
-				
 				//error_log("Blocked Anonymous Diff Request on $titleText : action=$action : diff=$diff");
 
 				//Difference between revisions of "User:Daveh/ESO Update"
@@ -315,7 +314,32 @@ $extra";
 		self::SetupUespLongitudeAds($out);
 		self::SetupUespTwitchEmbed($out);
 		self::SetupUespGoogleTags($out);
-		$out->addModules('ext.UespCustomCode.search.suggest');
+		$out->addModules(['ext.UespCustomCode.search.suggest', 'ext.UespCustomCode.customTabs']);
+		
+		if ($out->getRequest()->getVal('action') == "edit" || $out->getRequest()->getVal('action') == "submit") {
+			$out->addModules('ext.UespCustomCode.codeMirror');
+		}
+		
+		if ($out->getTitle()->getRootTitle() == "Special:UploadWizard") {
+			$out->addModules(['ext.UespCustomCode.uploadWizard', 'ext.uploadWizardUesp']);
+		}
+		
+		$user = $out->getUser();
+		if ($out->getSkin()->getSkinName() != "minerva" && $user->getOption('gadget-darkmode') == 1) {
+			//die(var_export($out));
+			if ($user->getOption('darkmodetoggle') == 0) {
+				$out->addHeadItem('Darkmode Gadget Css', '<link rel="stylesheet" href="/w/index.php?title=MediaWiki:Gadget-darkmode.css&action=raw&ctype=text/css">');
+			}
+			$out->addHeadItem('Darkmode Gadget Js', '<script>window.onload = function() {mw.loader.load("ext.gadget.darkmode");};</script>');
+		}
+		
+		if ($out->getSkin()->getSkinName() == "minerva") {
+			$out->addModules(['mobile.site.styles']);
+		}
+		
+		// include css for custom fonts automatically.
+		$out->addStyle('/w/extensions/UespCustomCode/modules/uespFonts.css');
+		
 		return true;
 	}
 
@@ -413,6 +437,28 @@ height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
 		return !$hasPaid;
 	}
 	#endregion
+	
+	public static function onGetPreferences(User $user, array &$preferences) {
+		$preferences['codemirrortheme'] = [
+			'type' => 'api',
+			'default' => 'default',
+		];
+		$preferences['darkmodetoggle'] = [
+		    'type' => 'api',
+			'default' => '0',
+		];
+	}
+	
+	public static function onResourceLoaderSiteStylesModulePages( $skin, &$pages ) {
+		$pages['MediaWiki:Tabs.css'] = [ 'type' => 'style'];
+	}
+	
+	public static function onOutputPageBodyAttributes( $out, $skin, &$bodyAttrs ): void {
+		$user = $out->getUser();
+		if ($user->getOption('gadget-darkmode') == 1 && $user->getOption('darkmodetoggle') == 0) {
+			$bodyAttrs['class'] .= ' darkMode';
+		}
+	}
 }
 
 //require_once('UespGlobalFunctions.php');

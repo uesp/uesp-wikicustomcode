@@ -1,0 +1,52 @@
+/* fonts for uesp custom stuff */
+
+/* Add webfont support for Daedric Font */
+@font-face {
+    font-family: 'Oblivion';
+    src: url('/w/extensions/DaedricFont/Oblivion.eot');
+    src: url('/w/extensions/DaedricFont/Oblivion.eot?#iefix') format('embedded-opentype'),
+         url('/w/extensions/DaedricFont/Oblivion.woff') format('woff'),
+         url('/w/extensions/DaedricFont/Oblivion.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+}
+
+/* Add webfont support for Dragon Font */
+@font-face {
+    font-family: 'DragonscriptRegular';
+    src: url('/w/extensions/DragonFont/dragon_script.eot');
+    src: url('/w/extensions/DragonFont/dragon_script.eot?#iefix') format('embedded-opentype'),
+         url('/w/extensions/DragonFont/dragon_script.woff') format('woff'),
+         url('/w/extensions/DragonFont/dragon_script.ttf') format('truetype'),
+         url('/w/extensions/DragonFont/dragon_script.svg#DragonscriptRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+}
+
+/* Add webfont support for Dwemer Font */
+@font-face {
+    font-family: 'Dwemersr';
+    src: url('/w/extensions/DwemerFont/DwemerSR.eot');
+    src: url('/w/extensions/DwemerFont/DwemerSR.eot?#iefix') format('embedded-opentype'),
+         url('/w/extensions/DwemerFont/DwemerSR.woff') format('woff'),
+         url('/w/extensions/DwemerFont/DwemerSR.ttf') format('truetype'),
+         url('/w/extensions/DwemerFont/DwemerSR.svg#Dwemersr-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+}
+
+/* Add webfont support for Falmer Font */
+@font-face {
+    font-family: 'Falmer';
+    src: url('/w/extensions/FalmerFont/Falmer.eot');
+    src: url('/w/extensions/FalmerFont/Falmer.eot?#iefix') format('embedded-opentype'),
+         url('/w/extensions/FalmerFont/Falmer.woff') format('woff'),
+         url('/w/extensions/FalmerFont/Falmer.ttf') format('truetype'),
+         url('/w/extensions/FalmerFont/Falmer.svg#Falmer') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+}
