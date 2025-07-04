@@ -18,7 +18,7 @@
 			"styles": [
 				"modules/uespCurse.css"
 			],
-			"remoteBasePath": "/uesp/extensions/UespCustomCode/",
+			"remoteBasePath": "/w/extensions/UespCustomCode/",
 			"targets": [
 				"desktop",
 				"mobile"
@@ -29,7 +29,7 @@
 			"styles": [
 				"modules/uespApp.css"
 			],
-			"remoteBasePath": "/uesp/extensions/UespCustomCode/",
+			"remoteBasePath": "/w/extensions/UespCustomCode/",
 			"targets": [
 				"mobile"
 			]
@@ -39,7 +39,7 @@
 			"scripts": [
 				"modules/uespApp.js"
 			],
-			"remoteBasePath": "/uesp/extensions/UespCustomCode/",
+			"remoteBasePath": "/w/extensions/UespCustomCode/",
 			"targets": [
 				"mobile"
 			]
@@ -49,7 +49,7 @@
 			"scripts": [
 				"modules/uespGoogleAnalytics.js"
 			],
-			"remoteBasePath": "/uesp/extensions/UespCustomCode/",
+			"remoteBasePath": "/w/extensions/UespCustomCode",
 			"targets": [
 				"desktop",
 				"mobile"
@@ -68,7 +68,54 @@
 				"mediawiki.searchSuggest"
 			],
 			"remoteBasePath": "/w/extensions/UespCustomCode"
-		}
+		},
+    "ext.UespCustomCode.uploadWizard": {
+      "position": "top",
+      "scripts": [
+       "modules/uespUploadWizard.js"
+      ],
+      "targets": [
+       "desktop",
+       "mobile"
+      ],
+      "dependencies": [
+       "ext.uploadWizard",
+			 "oojs",
+			 "oojs-ui",
+			 "oojs-ui.styles.icons-alerts",
+			 "oojs-ui.styles.icons-content",
+			 "oojs-ui.styles.icons-editing-core",
+			 "oojs-ui.styles.icons-editing-advanced",
+			 "oojs-ui.styles.icons-location",
+			 "oojs-ui.styles.icons-moderation"
+      ],
+      "remoteBasePath": "/w/extensions/UespCustomCode"
+    },
+    "ext.UespCustomCode.codeMirror": {
+      "position": "top",
+      "scripts": [
+       "modules/uespCodeMirror.js"
+      ],
+      "targets": [
+       "desktop",
+       "mobile"
+      ],
+      "dependencies": [
+       "ext.CodeMirror"
+      ],
+      "remoteBasePath": "/w/extensions/UespCustomCode"
+    },
+    "ext.UespCustomCode.customTabs": {
+      "position": "top",
+      "scripts": [
+       "modules/uespCustomTabs.js"
+      ],
+      "targets": [
+       "desktop",
+       "mobile"
+      ],
+      "remoteBasePath": "/w/extensions/UespCustomCode"
+    }
 	},
 	"AvailableRights": [
 		"allspacepatrol"
@@ -77,6 +124,8 @@
 		"SiteCustomCodeHooks::efSiteCustomCode"
 	],
 	"DefaultUserOptions": {
+    "codemirrortheme": "default",
+    "darkmodetoggle": 0,
 		"hideuserspace": 0,
 		"rcNsTalk": 1,
 		"sitesearchredirects": 1,
@@ -149,12 +198,14 @@
 		"BlockIp": "SiteMiscFunctions::RestrictBlockHook",
 		"FetchChangesList": "SiteMiscFunctions::fetchChangesList",
 		"GetDefaultSortkey": "SiteMiscFunctions::onGetDefaultSortkey",
+    "GetPreferences": "SiteCustomCodeHooks::onGetPreferences",
 		"IsFileCacheable": "SiteMiscFunctions::isFileCacheable",
 		"MarkPatrolled": "SiteMiscFunctions::markPatrolled",
 		"MediaWikiPerformAction": "SiteCustomCodeHooks::onUespMediaWikiPerformAction",
 		"MinervaDiscoveryTools": "SiteCustomCodeHooks::onUespMinervaDiscoveryTools",
 		"MobileMenu": "SiteCustomCodeHooks::onUespMobileMenu",
 		"MobilePersonalTools": "SiteCustomCodeHooks::onUespMobilePersonalTools",
+    "OutputPageBodyAttributes": "SiteCustomCodeHooks::onOutputPageBodyAttributes",
 		"OutputPageBeforeHTML": "SiteCustomCodeHooks::uespMobileAddTopAdDiv",
 		"OutputPageParserOutput": "SiteMiscFunctions::addCanonicalToHeader",
 		"ParserBeforeMakeImage": "SiteMiscFunctions::addImageClear",
