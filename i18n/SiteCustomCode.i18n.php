@@ -105,4 +105,8 @@ Tes4Mod:Tamriel Rebuilt ; TR4 ; Oblivion ; Tamriel Rebuilt ; Tes4Mod:Tamriel Reb
 	'right-unrestrictedblock'     => 'Block for any length of time',
 	'restrictblock-denied-utalk'  => '<div class="error">You are not allowed to block a user from editing their talk page.</div>',
 	'restrictblock-denied'        => '<div class="error">You are not allowed to block for more than $1 seconds.</div>',
+	
+	'uespcustomcode-mobilemenu-othercontent' => 'Other ES Games',
+	'uespcustomcode-mobilemenu-othercontent-link' => 'All_Content',
+	'uespcustomcode-mobilemenu-viewdesktop' => 'View Desktop',
 );

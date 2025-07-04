@@ -206,8 +206,8 @@ $extra";
 			'name' => 'othercontent',
 			'components' => array(
 				array(
-					'text' => 'Other ES Games',
-					'href' => "$wgServer/wiki/All_Content",
+					'text' => wfMessage('uespcustomcode-mobilemenu-othercontent')->text(),
+					'href' => "$wgServer/wiki/" . wfMessage('uespcustomcode-mobilemenu-othercontent-link')->text(),
 					'class' => MobileUI::iconClass('othercontent', 'before', 'menu-item-othercontent'),
 					'data-event-name' => 'othercontent',
 				),
@@ -248,7 +248,7 @@ $extra";
 			'name' => 'viewdesktop',
 			'components' => array(
 				array(
-					'text' => 'View Desktop',
+					'text' => wfMessage('uespcustomcode-mobilemenu-viewdesktop')->text(),
 					'href' => "$wgServer/wikiredirect.php",
 					'class' => MobileUI::iconClass('viewdesktop', 'before', 'menu-item-viewdesktop'),
 					'data-event-name' => 'viewdesktop',
