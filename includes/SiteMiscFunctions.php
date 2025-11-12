@@ -145,10 +145,6 @@ class SiteMiscFunctions
 	 */
 	public static function onGetDefaultSortkey($title, &$sortkey)
 	{
-		if ($sortkey){
-			return;
-		}
-		
 		// If class doesn't exist, the existing sortkey remains unchanged.
 		if (class_exists('NSInfo')) {
 			$nsUesp = NSInfo::nsFromTitle($title);
