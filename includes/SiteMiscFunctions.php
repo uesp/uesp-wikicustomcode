@@ -138,17 +138,17 @@ class SiteMiscFunctions
 	 * Overrides default sort key using site's custom namespace logic.
 	 *
 	 * @param Title $title
-	 * @param string &$sortkey
+	 * @param string $sortkey
 	 * @todo In theory, if the namespace supports subpages, this should break the entire title into sections and run
 	 * the regex on each one individually, but that's an edge-case...is it worth the extra processing?
 	 *
 	 */
 	public static function onGetDefaultSortkey($title, &$sortkey)
 	{
-		if ($sortkey) {
+		if ($sortkey){
 			return;
 		}
-
+		
 		// If class doesn't exist, the existing sortkey remains unchanged.
 		if (class_exists('NSInfo')) {
 			$nsUesp = NSInfo::nsFromTitle($title);

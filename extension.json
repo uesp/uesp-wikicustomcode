@@ -176,7 +176,6 @@
 	},
 	"SpecialPages": {
 		"Randompage": "SpecialRandompageSCC",
-		"Recentchanges": "SpecialRecentChangesSCC",
 		"Search": "SpecialSearchSCC",
 		"Wantedpages": "SpecialWantedPagesPageSCC"
 	},
@@ -187,7 +186,6 @@
 		"SiteOldChangesList": "includes/SiteOldChangesList.php",
 		"SpecialPreferencesSCC": "includes/SpecialPreferencesSCC.php",
 		"SpecialRandompageSCC": "includes/SpecialRandompageSCC.php",
-		"SpecialRecentChangesSCC": "includes/SpecialRecentchangesSCC.php",
 		"SpecialSearchSCC": "includes/SpecialSearchSCC.php",
 		"SpecialWantedPagesPageSCC": "includes/SpecialWantedPagesPageSCC.php",
 		"UespWebpHandler": "includes/UespWebpHandler.php"
@@ -198,14 +196,14 @@
 		"BlockIp": "SiteMiscFunctions::RestrictBlockHook",
 		"FetchChangesList": "SiteMiscFunctions::fetchChangesList",
 		"GetDefaultSortkey": "SiteMiscFunctions::onGetDefaultSortkey",
-    "GetPreferences": "SiteCustomCodeHooks::onGetPreferences",
+    	"GetPreferences": "SiteCustomCodeHooks::onGetPreferences",
 		"IsFileCacheable": "SiteMiscFunctions::isFileCacheable",
 		"MarkPatrolled": "SiteMiscFunctions::markPatrolled",
 		"MediaWikiPerformAction": "SiteCustomCodeHooks::onUespMediaWikiPerformAction",
 		"MinervaDiscoveryTools": "SiteCustomCodeHooks::onUespMinervaDiscoveryTools",
 		"MobileMenu": "SiteCustomCodeHooks::onUespMobileMenu",
 		"MobilePersonalTools": "SiteCustomCodeHooks::onUespMobilePersonalTools",
-    "OutputPageBodyAttributes": "SiteCustomCodeHooks::onOutputPageBodyAttributes",
+    	"OutputPageBodyAttributes": "SiteCustomCodeHooks::onOutputPageBodyAttributes",
 		"OutputPageBeforeHTML": "SiteCustomCodeHooks::uespMobileAddTopAdDiv",
 		"OutputPageParserOutput": "SiteMiscFunctions::addCanonicalToHeader",
 		"ParserBeforeMakeImage": "SiteMiscFunctions::addImageClear",
@@ -213,6 +211,7 @@
 		"SanitizerAddHtml": "SiteMiscFunctions::sanitizerAddHtml",
 		"SanitizerAddWhitelist": "SiteMiscFunctions::sanitizerAddWhitelist",
 		"SpecialPage_initList": "SiteCustomCodeHooks::efSiteSpecialPageInit",
+    	"SpecialPageBeforeExecute": "SiteCustomCodeHooks::onSpecialPageBeforeExecute",
 		"TitleSquidURLs": "SiteCustomCodeHooks::onUespTitleSquidURLs",
 		"UserMailerTransformMessage": "SiteCustomCodeHooks::onUespUserMailerTransformMessage",
 		"UserToggles": "SiteMiscFunctions::addUserToggles",
@@ -230,6 +229,18 @@
 			"value": true,
 			"path": false,
 			"description": "Global flag to enable/disable google ads",
+			"public": false
+		},
+		"AnonBlockedSpecialPages": {
+			"value": [],
+			"path": false,
+			"description": "List of special pages to block for anon users.",
+			"public": false
+		},
+		"AnonBlockedPages": {
+			"value": [],
+			"path": false,
+			"description": "List of pages to block for anon users.",
 			"public": false
 		}
 	}

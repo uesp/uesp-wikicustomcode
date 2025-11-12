@@ -14,7 +14,7 @@
 
 
 global $IP;
-require_once "$IP/includes/media/WebP.php";
+require_once "$IP/includes/media/WebPHandler.php";
 
 global $wgUespWebpBinPath;
 $wgUespWebpBinPath = '/usr/bin';
