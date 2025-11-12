@@ -5,9 +5,9 @@
 				$moreDetailsWrapperDiv, $moreDetailsDiv,
 				details = this;
 
-			this.thumbnailDiv = $( '<div class="mwe-upwiz-thumbnail mwe-upwiz-thumbnail-side"></div>' );
+			this.$thumbnailDiv = $( '<div class="mwe-upwiz-thumbnail mwe-upwiz-thumbnail-side"></div>' );
 
-			this.dataDiv = $( '<div class="mwe-upwiz-data"></div>' );
+			this.$dataDiv = $( '<div class="mwe-upwiz-data"></div>' );
 
 			this.titleDetails = new uw.TitleDetailsWidget( {
 				// Normalize file extension, e.g. 'JPEG' to 'jpg'
@@ -98,13 +98,7 @@
 
 			this.locationInput = new uw.LocationDetailsWidget( { showHeading: true } );
 			this.locationInputField = new uw.FieldLayout( this.locationInput, {
-				// No 'label', labels are included in this widget
-				help: new OO.ui.HtmlSnippet(
-					mw.message( 'mwe-upwiz-tooltip-location', $( '<a>' ).attr( {
-						target: '_blank',
-						href: '//commons.wikimedia.org/wiki/Commons:Geocoding'
-					} ) ).parse()
-				)
+				label: mw.message( 'mwe-upwiz-location' ).text()
 			} );
 			this.mainFields.push( this.locationInputField );
 
@@ -190,7 +184,7 @@
 				} );
 			} );
 
-			this.$form.append( this.removeCtrl.$element );
+			this.$thumbnailDiv.append( this.removeCtrl.$element );
 
 			this.submittingDiv = $( '<div>' ).addClass( 'mwe-upwiz-submitting' )
 				.append(
@@ -201,14 +195,14 @@
 					)
 				);
 
-			$( this.dataDiv ).append(
+			this.$dataDiv.append(
 				this.$form,
 				this.submittingDiv
 			).morphCrossfader();
 
-			$( this.div ).append(
-				this.thumbnailDiv,
-				this.dataDiv
+			this.$div.append(
+				this.$thumbnailDiv,
+				this.$dataDiv
 			);
 
 			uri = new mw.Uri( location.href, { overrideKeys: true } );

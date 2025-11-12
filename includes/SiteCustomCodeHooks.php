@@ -1,5 +1,5 @@
 <?php
-require './extensions/UespCustomCode/includes/UespGlobalFunctions.php';
+require dirname(__FILE__)."/UespGlobalFunctions.php";
 class SiteCustomCodeHooks
 {
 	#region Public Functions
@@ -109,7 +109,7 @@ $extra";
 	public static function onUespBeforeInitialize(&$title, $unused, $output, $user, $request, $mediaWiki)
 	{
 		global $uespIsApp;
-
+		
 		if ($uespIsApp) {
 			$output->addModules('ext.UespCustomCode.app.scripts');
 			$output->addModuleStyles('ext.UespCustomCode.app.styles');
@@ -120,17 +120,33 @@ $extra";
 			//$output->addModules( 'ext.UespCustomCode.ad' );
 		}
 	}
+	
+	public static function onSpecialPageBeforeExecute(SpecialPage $special, $subPage)
+	{
+		global $egAnonBlockedSpecialPages;
+		//die($special->getPageTitle()->getText());
+		$user = $special->getUser();
+		$title = $special->getPageTitle();
+		$output = $special->getOutput();
+		if (isset($egAnonBlockedSpecialPages) && (!$user || $user->isAnon()) && $title) {
+			if (in_array($title->getText(), $egAnonBlockedSpecialPages)) {					
+				$output->showPermissionsErrorPage(['siteanonspecialerror']);
+				$output->output();
+				$output->disable();
+				return false;
+			}
+		}
+	}
 
 	public static function onUespMediaWikiPerformAction($output, $article, $title, $user, $request, $wiki)
 	{
+		global $egAnonBlockedPages;
 		$action = $request->getVal('action');
 		$diff = $request->getVal('diff');
 
 		//Block Anonymous diff requests
-		if (
-			$action == "" && $diff != ""
-		) {
-			if (!$user || $user->isAnon()) {
+		if (!$user || $user->isAnon()) {
+			if ($action == "" && $diff != "") {
 				$titleText = "?";
 				if ($title) $titleText = $title->getPrefixedText();
 				//error_log("Blocked Anonymous Diff Request on $titleText : action=$action : diff=$diff");
@@ -139,6 +155,15 @@ $extra";
 				$output->addHTML("<h1 id=\"firstHeading\" class=\"firstHeading\" lang=\"en\">Difference between revisions of \"$titleText\"</h1>");
 				$output->addHTML("Article diff output is disabled for anonymous users. Please <a href='/wiki/Special:UserLogin'>Login</a> to view.");
 				return false;
+			}
+			
+			if (isset($egAnonBlockedPages) && $title) {
+				if (in_array($title->getPrefixedText(), $egAnonBlockedPages)) {
+					$output->showPermissionsErrorPage(['siteanonnormalpageerror']);
+					$output->output();
+					$output->disable();
+					return false;
+				}
 			}
 		}
 

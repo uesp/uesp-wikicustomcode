@@ -2,5 +2,7 @@
 	"@metadata": {
 		"authors": []
 	},
-	"sitecustomcode-desc": "Various code customizations that provide functionality specific to this site"
+	"sitecustomcode-desc": "Various code customizations that provide functionality specific to this site",
+  "siteanonspecialerror": "Anonymous users do not have access to this Special Page. Please [[Special:Login|Login]] or [[Special:CreateAccount|Create an Account]] in order to access this page.",
+  "siteanonnormalpageerror": "Anonymous users do not have access to this page. Please [[Special:Login|Login]] or [[Special:CreateAccount|Create an Account]] in order to access this page."
 }
