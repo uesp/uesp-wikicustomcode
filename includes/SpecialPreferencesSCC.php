@@ -10,9 +10,12 @@ require_once "$IP/includes/specials/SpecialPreferences.php";
 
 class SpecialPreferencesSCC extends SpecialPreferences
 {
-	protected $mRcNs = array();
+	protected $mRcNs = [];
 	protected $mRcNsTalk = NULL;
 	protected $mPosted = false;
+	protected $mToggles = [];
+	protected $mUsedToggles = [];
+	protected $mSearchNs = [];
 
 	function __construct()
 	{
