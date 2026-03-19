@@ -69,6 +69,19 @@
 			],
 			"remoteBasePath": "/w/extensions/UespCustomCode"
 		},
+		"ext.UespCustomCode.mobile.search.searchGateway": {
+		"position": "top",
+		"scripts": [
+			"modules/uespMobile.js"
+		],
+		"targets": [
+			"desktop",
+			"mobile"
+		],
+		"dependencies": [
+			"mobile.search.api"
+		]
+		},
 		"ext.UespCustomCode.uploadWizard": {
 			"position": "top",
 			"scripts": [
@@ -203,6 +216,7 @@
 		"MinervaDiscoveryTools": "SiteCustomCodeHooks::onUespMinervaDiscoveryTools",
 		"MobileMenu": "SiteCustomCodeHooks::onUespMobileMenu",
 		"MobilePersonalTools": "SiteCustomCodeHooks::onUespMobilePersonalTools",
+		"SidebarBeforeOutput": "SiteCustomCodeHooks::onSidebarBeforeOutput",
 		"OutputPageBodyAttributes": "SiteCustomCodeHooks::onOutputPageBodyAttributes",
 		"OutputPageBeforeHTML": "SiteCustomCodeHooks::uespMobileAddTopAdDiv",
 		"OutputPageParserOutput": "SiteMiscFunctions::addCanonicalToHeader",
