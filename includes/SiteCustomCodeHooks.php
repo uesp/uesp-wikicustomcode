@@ -440,11 +440,12 @@ height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
 		if ($cachedUser == null) {
 			$db = wfGetDB(DB_REPLICA);
 
-			try {
-				$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()]);
-			} catch (Exception $e) {
+			// Try-catch can cause issues with DB connection, so check if table exists instead.
+			if (!$db->tableExists('patreon_user')) {
 				return true;
 			}
+
+			$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()], );
 
 			if (
 				$res->numRows() == 0
