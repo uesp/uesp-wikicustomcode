@@ -124,6 +124,9 @@ $extra";
 	public static function onSpecialPageBeforeExecute(SpecialPage $special, $subPage)
 	{
 		global $egAnonBlockedSpecialPages;
+		if ( $special->getRequest() instanceof FauxRequest ) {
+			return true;
+		}
 		//die($special->getPageTitle()->getText());
 		$user = $special->getUser();
 		$title = $special->getPageTitle();
@@ -360,7 +363,7 @@ $extra";
 		}
 		
 		if ($out->getSkin()->getSkinName() == "minerva") {
-			$out->addModules(['mobile.site.styles', 'ext.UespCustomCode.mobile.search.searchGateway']);
+			$out->addModules(['mobile.site.styles', 'ext.UespCustomCode.mobile.search.searchGateway', 'ext.UespCustomCode.mobile.referencesGateway']);
 		}
 		
 		// include css for custom fonts automatically.
@@ -441,12 +444,11 @@ height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
 		if ($cachedUser == null) {
 			$db = wfGetDB(DB_REPLICA);
 
-			// Try-catch can cause issues with DB connection, so check if table exists instead.
-			if (!$db->tableExists('patreon_user')) {
+			try {
+				$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()]);
+			} catch (Exception $e) {
 				return true;
 			}
-
-			$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()], );
 
 			if (
 				$res->numRows() == 0
