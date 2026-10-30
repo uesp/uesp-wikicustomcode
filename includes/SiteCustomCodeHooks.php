@@ -124,12 +124,16 @@ $extra";
 	public static function onSpecialPageBeforeExecute(SpecialPage $special, $subPage)
 	{
 		global $egAnonBlockedSpecialPages;
+		if ( $special->getRequest() instanceof FauxRequest ) {
+			return true;
+		}
 		//die($special->getPageTitle()->getText());
 		$user = $special->getUser();
 		$title = $special->getPageTitle();
 		$output = $special->getOutput();
+		//die($title->getText());
 		if (isset($egAnonBlockedSpecialPages) && (!$user || $user->isAnon()) && $title) {
-			if (in_array($title->getText(), $egAnonBlockedSpecialPages)) {					
+			if (in_array($title->getText(), $egAnonBlockedSpecialPages)) {
 				$output->showPermissionsErrorPage(['siteanonspecialerror']);
 				$output->output();
 				$output->disable();
@@ -359,7 +363,7 @@ $extra";
 		}
 		
 		if ($out->getSkin()->getSkinName() == "minerva") {
-			$out->addModules(['mobile.site.styles']);
+			$out->addModules(['mobile.site.styles', 'ext.UespCustomCode.mobile.search.searchGateway', 'ext.UespCustomCode.mobile.referencesGateway']);
 		}
 		
 		// include css for custom fonts automatically.
@@ -440,12 +444,11 @@ height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
 		if ($cachedUser == null) {
 			$db = wfGetDB(DB_REPLICA);
 
-			// Try-catch can cause issues with DB connection, so check if table exists instead.
-			if (!$db->tableExists('patreon_user')) {
+			try {
+				$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()]);
+			} catch (Exception $e) {
 				return true;
 			}
-
-			$res = $db->select('patreon_user', '*', ['wikiuser_id' => $wgUser->getId()], );
 
 			if (
 				$res->numRows() == 0
@@ -483,6 +486,20 @@ height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
 		$user = $out->getUser();
 		if ($user->getOption('gadget-darkmode') == 1 && $user->getOption('darkmodetoggle') == 0) {
 			$bodyAttrs['class'] .= ' darkMode';
+		}
+	}
+	
+	public static function onSidebarBeforeOutput( Skin $skin, &$sidebar ) {
+		$out = $skin->getOutput();
+		$metaTags = $out->getMetaTags();
+		foreach ($metaTags as $metaTag) {
+			if ($metaTag[0] == 'description') {
+				$testDesc = html_entity_decode($metaTag[1]);
+				if (preg_match_all('/\[[^\]]+\]/', $testDesc)) {
+					$out->addMeta('description', preg_replace('/\[[^\]]+\]/', '', $testDesc));
+					//die(var_export($out->getMetaTags(), true));
+				}
+			}
 		}
 	}
 }
